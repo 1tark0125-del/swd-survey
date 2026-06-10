@@ -217,6 +217,22 @@ textarea.sh{min-height:52px;}
   .hero::before{font-size:55px;}
   .tbar{flex-direction:column;align-items:flex-start;}
 }
+
+  /* Manager P2 Matrix */
+  .mgr-mat{width:100%;border-collapse:collapse;margin-bottom:14px;}
+  .mgr-mat th{font-size:9px;font-weight:700;color:var(--white);background:var(--blk3);padding:6px 3px;text-align:center;border:1px solid var(--blk4);}
+  .mgr-mat th.ch{text-align:left;width:38%;background:var(--black);padding-left:10px;}
+  .mgr-mat td{padding:5px 3px;border:1px solid var(--blk3);text-align:center;background:var(--white);}
+  .mgr-mat td.cn{text-align:left;font-size:11.5px;font-weight:500;color:var(--white);background:var(--blk2);padding-left:10px;}
+  .mgr-mat tr:nth-child(even) td.cn{background:var(--blk3);}
+  .mgr-mat label{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;font-size:9px;color:var(--graymid);}
+  .mgr-mat input[type=radio]{display:none;}
+  .qbx{width:26px;height:26px;border-radius:5px;border:2px solid var(--graylt);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;transition:all .15s;background:var(--white);color:var(--graymid);}
+  .mgr-mat input[type=radio]:checked+.qbx.r1{background:#CC2200;border-color:#CC2200;color:var(--white);}
+  .mgr-mat input[type=radio]:checked+.qbx.r2{background:#1A7A3A;border-color:#1A7A3A;color:var(--white);}
+  .mgr-mat input[type=radio]:checked+.qbx.r3{background:var(--graymid);border-color:var(--graymid);color:var(--white);}
+  .mgr-mat input[type=radio]:checked+.qbx.r4{background:var(--ydark);border-color:var(--ydark);color:var(--black);}
+  .mgr-mat label:hover .qbx{border-color:var(--yellow);}
 </style>
 </head>
 <body>
@@ -295,8 +311,26 @@ textarea.sh{min-height:52px;}
 
     <div class="notice">
       <strong>📋 설문 안내 / Survey Notice</strong>
-      본 설문은 오비맥주 마케팅 부문 구성원의 실제 워크로드와 업무 내용을 분석하여, 구성원이 보다 가치 있는 업무에 집중할 수 있는 효율적인 업무 환경과 문화를 조성하기 위해 시행됩니다. 응답 내용은 개인 평가 목적으로 활용되지 않으며, 조직 단위 분석에만 사용됩니다. 솔직한 응답 부탁드립니다.
-      <span class="bi">This survey diagnoses work structure of OB Beer Marketing Division members and will be used as foundational data for an efficient work environment. This is not for individual evaluation — responses will only be accessed by the Commercial &amp; Support People team.</span>
+      Smart-Work Design Survey는 오비맥주 마케팅 부문 구성원의 실제 워크로드와 업무 내용을 분석하여 구성원들의 Work and Life Balance를 개선하고, 모두가 성장할 수 있는 일하는 환경과 문화를 구축하기 위한 기초자료로 활용될 예정입니다. 응답 내용은 개인 평가 목적으로 활용되지 않음을 안내드리며, 더 나은 마케팅 조직을 만들기 위해 솔직한 응답 부탁드립니다.
+      <span class="bi">The Smart-Work Design Survey will serve as foundational data to analyze the actual workload and work content of OB Beer Marketing Division members, with the goal of improving Work-Life Balance and building a culture where everyone can grow. Responses will not be used for individual evaluation — we ask for your honest input to help build a better marketing organization.</span>
+    </div>
+
+    <!-- Quick Guide -->
+    <div style="background:var(--blk2);border-radius:8px;padding:16px 20px;margin-bottom:22px;border-left:4px solid var(--yellow);">
+      <div style="font-size:12px;font-weight:700;color:var(--yellow);margin-bottom:11px;letter-spacing:.5px;">📌 시작 전, 아래 사항을 확인해 주세요 / Quick Guide</div>
+      <div style="font-size:12px;color:var(--graylt);line-height:1.95;">
+        <div>✅&nbsp; 이름 입력란에 <strong style="color:var(--white);">한국어 성함</strong>을 입력해 주세요</div>
+        <div>✅&nbsp; 서베이의 <strong style="color:var(--white);">모든 문항</strong>에 빠짐없이 응답해 주세요</div>
+        <div>⏱&nbsp; 예상 소요 시간: <strong style="color:var(--white);">구성원 — 약 20분</strong> / <strong style="color:var(--white);">팀장 — 약 35분</strong></div>
+        <div style="margin-top:7px;padding-top:8px;border-top:1px solid var(--blk3);">
+          👤&nbsp; <strong style="color:var(--white);">구성원:</strong> 구성원 서베이만 진행하시면 됩니다<br>
+          <span style="padding-left:22px;color:var(--gray);font-size:11px;font-style:italic;">Members: Please complete the Member Survey only.</span>
+        </div>
+        <div style="margin-top:5px;">
+          👥&nbsp; <strong style="color:var(--white);">팀장:</strong> 팀장 서베이와 구성원 서베이 모두 진행해 주세요<br>
+          <span style="padding-left:22px;color:var(--gray);font-size:11px;font-style:italic;">Managers: Please complete both the Manager Survey and the Member Survey.</span>
+        </div>
+      </div>
     </div>
 
     <!-- Manager-only notice -->
@@ -340,7 +374,7 @@ textarea.sh{min-height:52px;}
     </div>
 
     <div class="irow">
-      <div class="fg"><label>이름 / Name <span class="req">*</span></label><input type="text" id="fName" placeholder="홍길동 / Hong Gil-dong"></div>
+      <div class="fg"><label>이름 / Name <span class="req">*</span></label><input type="text" id="fName" placeholder="한국어 성함을 입력해주세요 / Please enter your name in Korean"></div>
       <div class="fg">
         <label>부문 / Division <span class="req">*</span></label>
         <select id="fDivision" onchange="updTeamOpts()">
@@ -382,29 +416,28 @@ textarea.sh{min-height:52px;}
       <p>지난 한 달 기준 · Based on the past month</p>
     </div>
   </div>
+  <div class="qhint" style="margin-bottom:16px;background:var(--blk2);color:var(--graylt);border-left:3px solid var(--gy1b);line-height:1.8;">
+    해당 섹션은 응답자의 현재 업무 시간에서 어떤 유형의 일에 얼마나 시간이 분배되고 있는지 확인하는 것을 목적으로 합니다. 업무 시간의 총량과 업무의 비중을 확인하여 구성원의 Work and Life Balance에 기여할 수 있는 기회를 탐색하기 위한 기초자료로 활용됩니다.<br>
+    <span style="font-style:italic;color:var(--gray);font-size:10.5px;">This section aims to understand how your working hours are distributed across different types of work, serving as foundational material to identify opportunities contributing to members' Work-Life Balance.</span>
+  </div>
 
   <!-- Q1: Weekly Hours -->
   <div class="qc">
     <div class="qlbl">Q1</div>
-    <div class="qt">지난 1주일간 아래 각 업무 유형에 실제로 몇 시간을 할애하셨나요? <span class="req">*</span></div>
-    <div class="qen">Over the past week, how many actual hours did you spend on each type of work?</div>
+    <div class="qt">지난달(5월) 기준 1주일 평균 아래 각 업무 유형에 실제로 몇 시간을 할애하셨나요? <span class="req">*</span></div>
+    <div class="qen">Based on last month (May), how many hours did you spend on average per week on each type of work?</div>
     <div class="qhint">💡 실제 투입 시간(H)을 숫자로 입력해주세요. 0이면 0을 입력하세요 / Enter actual hours spent. Enter 0 if none.</div>
     <table class="cst">
       <thead><tr><th>업무 유형 / Work Type</th><th>시간 (H)</th></tr></thead>
       <tbody id="wkBody">
-        <tr><td>전략·기획 (캠페인 기획, 브랜드 전략 등)<span class="bi">Strategy &amp; Planning</span></td><td><input class="wki" data-cat="전략·기획" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
-        <tr><td>크리에이티브 (콘텐츠 제작, 아이디에이션 등)<span class="bi">Creative</span></td><td><input class="wki" data-cat="크리에이티브" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
-        <tr><td>분석·인사이트 (데이터 분석, 소비자 리서치 등)<span class="bi">Analysis &amp; Insights</span></td><td><input class="wki" data-cat="분석·인사이트" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
-        <tr><td>미팅 (내부 회의 등)<span class="bi">Meetings</span></td><td><input class="wki" data-cat="미팅" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
-        <tr><td>보고 (보고서 작성, 리뷰 자료 등)<span class="bi">Reporting</span></td><td><input class="wki" data-cat="보고" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
         <tr><td>덱 작업 (프레젠테이션 자료 제작)<span class="bi">Deck Creation</span></td><td><input class="wki" data-cat="덱 작업" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
-        <tr><td>어드민·반복 업무 (이메일, 승인, 정리 등)<span class="bi">Admin &amp; Repetitive Tasks</span></td><td><input class="wki" data-cat="어드민·반복" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
-        <tr><td>운영 업무 (행사 운영, 실행 관리 등)<span class="bi">Operations</span></td><td><input class="wki" data-cat="운영 업무" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
         <tr><td>코칭 및 피플매니징 (팀원 코칭, 성과 관리 등)<span class="bi">Coaching &amp; People Managing</span></td><td><input class="wki" data-cat="코칭 및 피플매니징" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
-        <tr><td>1:1 (커리어·업무 코칭) (팀원과의 정기 1:1, 성장 지원 등)<span class="bi">1:1 Coaching (Career &amp; Work)</span></td><td><input class="wki" data-cat="1:1 코칭" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        <tr><td>미팅 (내부 회의, 정기 미팅 등)<span class="bi">Meetings</span></td><td><input class="wki" data-cat="미팅" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        <tr><td>에드혹 대응 (긴급 요청, 예상치 못한 업무 등)<span class="bi">Ad-hoc Response (Urgent Unplanned Requests)</span></td><td><input class="wki" data-cat="에드혹 대응" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
         <tr><td>이해관계자 관리 (협력사, 타부서 커뮤니케이션 등)<span class="bi">Stakeholder Management</span></td><td><input class="wki" data-cat="이해관계자 관리" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
-        <tr><td>에드혹 대응 (긴급 요청, 예상치 못한 업무 등)<span class="bi">Ad-hoc Response</span></td><td><input class="wki" data-cat="에드혹 대응" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
         <tr><td>외근 (현장 방문, 거래처 미팅, 출장 등)<span class="bi">Field Work / Off-site</span></td><td><input class="wki" data-cat="외근" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        <tr><td>구매 및 비용처리 (발주, 지출 결의, 정산 등)<span class="bi">Procurement &amp; Expense Processing</span></td><td><input class="wki" data-cat="구매 및 비용처리" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        <tr><td>어드민·반복 (이메일, 승인, 일정 관리 등)<span class="bi">Admin &amp; Repetitive Tasks (Email, Approvals, Scheduling)</span></td><td><input class="wki" data-cat="어드민·반복" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
         <tr>
           <td>기타 / Other<div class="oth-inp" id="wkOthWrap" style="display:none"><input type="text" class="oth-txt" id="wkOthDesc" placeholder="업무 내용 / Describe the work"></div></td>
           <td><input class="wki" data-cat="기타" type="number" min="0" step="0.5" value="0" id="wkOthPct" oninput="togWkOth()"></td>
@@ -419,25 +452,20 @@ textarea.sh{min-height:52px;}
   <!-- Q2: Constant Sum (월간 배분) -->
   <div class="qc">
     <div class="qlbl">Q2</div>
-    <div class="qt">지난 한 달을 기준으로 아래 업무 유형에 시간을 어느 정도 비중으로 쓰셨나요? <span class="req">*</span></div>
-    <div class="qen">Based on the past month, what % of your time did you spend on each work type? (Total must = 100%)</div>
+    <div class="qt">지난 1년 (신규입사자 및 부서이동 인원의 경우 최근 포지션 기준) 평균 1개월 기준으로 아래 업무 유형에 시간을 어느 정도 비중으로 쓰셨나요? <span class="req">*</span></div>
+    <div class="qen">Over the past year (for new joiners/transfers, based on current position), what % of your monthly time did you spend on each work type? (Total = 100%)</div>
     <div class="qhint">💡 합계가 정확히 100이 되어야 다음 단계로 넘어갈 수 있습니다 / Total must equal exactly 100 to proceed.</div>
     <table class="cst">
       <thead><tr><th>업무 유형 / Work Type</th><th>비중 (%)</th></tr></thead>
       <tbody id="cstBody">
-        <tr><td>전략·기획 (캠페인 기획, 브랜드 전략 등)<span class="bi">Strategy &amp; Planning</span></td><td><input class="csi" data-cat="전략·기획" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
-        <tr><td>크리에이티브 (콘텐츠 제작, 아이디에이션 등)<span class="bi">Creative</span></td><td><input class="csi" data-cat="크리에이티브" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
-        <tr><td>분석·인사이트 (데이터 분석, 소비자 리서치 등)<span class="bi">Analysis &amp; Insights</span></td><td><input class="csi" data-cat="분석·인사이트" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
-        <tr><td>미팅 (내부 회의 등)<span class="bi">Meetings</span></td><td><input class="csi" data-cat="미팅" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
-        <tr><td>보고 (보고서 작성, 리뷰 자료 등)<span class="bi">Reporting</span></td><td><input class="csi" data-cat="보고" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
         <tr><td>덱 작업 (프레젠테이션 자료 제작)<span class="bi">Deck Creation</span></td><td><input class="csi" data-cat="덱 작업" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
-        <tr><td>어드민·반복 업무 (이메일, 승인, 정리 등)<span class="bi">Admin &amp; Repetitive Tasks</span></td><td><input class="csi" data-cat="어드민·반복" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
-        <tr><td>운영 업무 (행사 운영, 실행 관리 등)<span class="bi">Operations</span></td><td><input class="csi" data-cat="운영 업무" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
         <tr><td>코칭 및 피플매니징 (팀원 코칭, 성과 관리 등)<span class="bi">Coaching &amp; People Managing</span></td><td><input class="csi" data-cat="코칭 및 피플매니징" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
-        <tr><td>1:1 (커리어·업무 코칭) (팀원과의 정기 1:1, 성장 지원 등)<span class="bi">1:1 Coaching (Career &amp; Work)</span></td><td><input class="csi" data-cat="1:1 코칭" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        <tr><td>미팅 (내부 회의, 정기 미팅 등)<span class="bi">Meetings</span></td><td><input class="csi" data-cat="미팅" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        <tr><td>에드혹 대응 (긴급 요청, 예상치 못한 업무 등)<span class="bi">Ad-hoc Response (Urgent Unplanned Requests)</span></td><td><input class="csi" data-cat="에드혹 대응" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
         <tr><td>이해관계자 관리 (협력사, 타부서 커뮤니케이션 등)<span class="bi">Stakeholder Management</span></td><td><input class="csi" data-cat="이해관계자 관리" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
-        <tr><td>에드혹 대응 (긴급 요청, 예상치 못한 업무 등)<span class="bi">Ad-hoc Response</span></td><td><input class="csi" data-cat="에드혹 대응" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
         <tr><td>외근 (현장 방문, 거래처 미팅, 출장 등)<span class="bi">Field Work / Off-site</span></td><td><input class="csi" data-cat="외근" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        <tr><td>구매 및 비용처리 (발주, 지출 결의, 정산 등)<span class="bi">Procurement &amp; Expense Processing</span></td><td><input class="csi" data-cat="구매 및 비용처리" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        <tr><td>어드민·반복 (이메일, 승인, 일정 관리 등)<span class="bi">Admin &amp; Repetitive Tasks (Email, Approvals, Scheduling)</span></td><td><input class="csi" data-cat="어드민·반복" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
         <tr>
           <td>기타 / Other<div class="oth-inp" id="othInpWrap" style="display:none"><input type="text" class="oth-txt" id="othDesc" placeholder="업무 내용 / Describe the work"></div></td>
           <td><input class="csi" data-cat="기타" type="number" min="0" max="100" value="0" id="othPct" oninput="updSum();togOth()"></td>
@@ -499,17 +527,106 @@ textarea.sh{min-height:52px;}
   </div>
 
   <div class="qhint" id="hintMember" style="margin-bottom:13px;">
-    💡 <strong>가치(Value)</strong> — 팀·조직 목표 달성에 직접 기여하는 정도 · Direct contribution to team &amp; org goals<br>
-    💡 <strong>노력(Effort)</strong> — 해당 업무에 투입되는 시간 + 심리적 에너지 · Time + mental energy invested
+    해당 섹션은 응답자께서 현재 담당하는 업무에서의 <strong>가치</strong>(조직 목표 달성에 직접 기여하는 정도) 인식과 <strong>노력</strong>(업무에 투입되는 시간 + 심리적 에너지)을 확인하는 것을 목적으로 합니다. 이는 구성원들이 가치가 높은 업무에 몰입할 수 있도록 개선 기회를 탐색하기 위한 기초자료로 활용됩니다.<br>
+    <span style="font-style:italic;color:var(--gray);font-size:10.5px;">This section aims to understand your perception of value and effort in your current work, to identify opportunities for focusing on higher-value work.</span><br><br>
+    💡 <strong>가치(Value)</strong> — 팀·조직 목표 달성에 직접 기여하는 정도<br>
+    💡 <strong>노력(Effort)</strong> — 해당 업무에 투입되는 시간 + 심리적 에너지
   </div>
 
-  <div class="qhint" id="hintManager" style="margin-bottom:13px;display:none;background:var(--ypale);border-left:3px solid var(--yellow);">
-    💡 <strong>선택한 팀원의 업무를 기준으로 응답해주세요.</strong> 해당 팀원이 수행하는 업무 중 아래 각 사분면에 해당하는 것을 선택·기재해주세요.<br>
-    <span style="font-style:italic;color:var(--gray);font-size:10.5px;">Please respond based on the selected team member's work. For each quadrant below, select and describe tasks that apply to this team member.</span>
+  <div class="qhint" id="hintManager" style="margin-bottom:13px;display:none;background:var(--blk2);color:var(--graylt);border-left:3px solid var(--ydark);line-height:1.8;">
+    해당 섹션은 매니저의 관점에서 팀원이 현재 담당하는 업무에서의 <strong>가치</strong>(조직 목표 달성에 직접 기여하는 정도) 인식과 <strong>노력</strong>(업무에 투입되는 시간 + 심리적 에너지)을 확인하는 것을 목적으로 합니다. 이는 구성원들이 가치가 높은 업무에 몰입할 수 있도록 개선 기회를 탐색하기 위한 기초자료로 활용됩니다.<br>
+    <span style="font-style:italic;color:var(--gray);font-size:10.5px;">This section aims to understand, from the manager's perspective, the value and effort of the selected team member's work, to identify opportunities for members to focus on higher-value work.</span><br><br>
+    💡 <strong>선택한 팀원의 업무를 기준으로 응답해주세요.</strong> 해당 팀원이 수행하는 업무 중 아래 각 사분면에 해당하는 것을 선택·기재해주세요.
   </div>
 
   <!-- Manager Q3 (TOP3 should-spend) shown only for manager -->
-  <div class="qc" id="mgrQ3" style="display:none">
+  
+  <!-- Manager P2 Matrix (manager only) -->
+  <div class="qc" id="mgrMatCard" style="display:none">
+    <div class="qlbl">P2 — Manager</div>
+    <div class="qt">선택한 팀원의 업무를 아래 기준으로 분류해주세요. <span class="req">*</span></div>
+    <div class="qen">Please classify the selected team member's work according to the criteria below.</div>
+    <div class="qhint" style="margin-bottom:11px;line-height:1.7;">
+      🔴 <strong>1Q 고가치·고노력</strong> — 가치 높고 노력 많이 드는 업무&nbsp;&nbsp;🟢 <strong>2Q 고가치·저노력</strong> — 가치 높고 노력 적게 드는 업무<br>
+      ⚪ <strong>3Q 저가치·저노력</strong> — 가치 낮고 노력 적게 드는 업무&nbsp;&nbsp;🟡 <strong>4Q 저가치·고노력</strong> — 가치 낮고 노력 많이 드는 업무
+    </div>
+    <table class="mgr-mat">
+      <thead>
+        <tr>
+          <th class="ch">업무 유형 / Work Type</th>
+          <th>🔴 1Q<br><span style="font-weight:300;font-size:8px;">고가치·고노력</span></th>
+          <th>🟢 2Q<br><span style="font-weight:300;font-size:8px;">고가치·저노력</span></th>
+          <th>⚪ 3Q<br><span style="font-weight:300;font-size:8px;">저가치·저노력</span></th>
+          <th>🟡 4Q<br><span style="font-weight:300;font-size:8px;">저가치·고노력</span></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cn">덱 작업<span class="bi">Deck Creation</span></td>
+          <td><label><input type="radio" name="mq0" value="1"><span class="qbx r1">1Q</span></label></td>
+          <td><label><input type="radio" name="mq0" value="2"><span class="qbx r2">2Q</span></label></td>
+          <td><label><input type="radio" name="mq0" value="3"><span class="qbx r3">3Q</span></label></td>
+          <td><label><input type="radio" name="mq0" value="4"><span class="qbx r4">4Q</span></label></td>
+        </tr>
+        <tr>
+          <td class="cn">코칭 및 피플매니징<span class="bi">Coaching &amp; People Managing</span></td>
+          <td><label><input type="radio" name="mq1" value="1"><span class="qbx r1">1Q</span></label></td>
+          <td><label><input type="radio" name="mq1" value="2"><span class="qbx r2">2Q</span></label></td>
+          <td><label><input type="radio" name="mq1" value="3"><span class="qbx r3">3Q</span></label></td>
+          <td><label><input type="radio" name="mq1" value="4"><span class="qbx r4">4Q</span></label></td>
+        </tr>
+        <tr>
+          <td class="cn">미팅<span class="bi">Meetings</span></td>
+          <td><label><input type="radio" name="mq2" value="1"><span class="qbx r1">1Q</span></label></td>
+          <td><label><input type="radio" name="mq2" value="2"><span class="qbx r2">2Q</span></label></td>
+          <td><label><input type="radio" name="mq2" value="3"><span class="qbx r3">3Q</span></label></td>
+          <td><label><input type="radio" name="mq2" value="4"><span class="qbx r4">4Q</span></label></td>
+        </tr>
+        <tr>
+          <td class="cn">에드혹 대응<span class="bi">Ad-hoc Response</span></td>
+          <td><label><input type="radio" name="mq3" value="1"><span class="qbx r1">1Q</span></label></td>
+          <td><label><input type="radio" name="mq3" value="2"><span class="qbx r2">2Q</span></label></td>
+          <td><label><input type="radio" name="mq3" value="3"><span class="qbx r3">3Q</span></label></td>
+          <td><label><input type="radio" name="mq3" value="4"><span class="qbx r4">4Q</span></label></td>
+        </tr>
+        <tr>
+          <td class="cn">이해관계자 관리<span class="bi">Stakeholder Management</span></td>
+          <td><label><input type="radio" name="mq4" value="1"><span class="qbx r1">1Q</span></label></td>
+          <td><label><input type="radio" name="mq4" value="2"><span class="qbx r2">2Q</span></label></td>
+          <td><label><input type="radio" name="mq4" value="3"><span class="qbx r3">3Q</span></label></td>
+          <td><label><input type="radio" name="mq4" value="4"><span class="qbx r4">4Q</span></label></td>
+        </tr>
+        <tr>
+          <td class="cn">외근<span class="bi">Field Work / Off-site</span></td>
+          <td><label><input type="radio" name="mq5" value="1"><span class="qbx r1">1Q</span></label></td>
+          <td><label><input type="radio" name="mq5" value="2"><span class="qbx r2">2Q</span></label></td>
+          <td><label><input type="radio" name="mq5" value="3"><span class="qbx r3">3Q</span></label></td>
+          <td><label><input type="radio" name="mq5" value="4"><span class="qbx r4">4Q</span></label></td>
+        </tr>
+        <tr>
+          <td class="cn">구매 및 비용처리<span class="bi">Procurement &amp; Expense Processing</span></td>
+          <td><label><input type="radio" name="mq6" value="1"><span class="qbx r1">1Q</span></label></td>
+          <td><label><input type="radio" name="mq6" value="2"><span class="qbx r2">2Q</span></label></td>
+          <td><label><input type="radio" name="mq6" value="3"><span class="qbx r3">3Q</span></label></td>
+          <td><label><input type="radio" name="mq6" value="4"><span class="qbx r4">4Q</span></label></td>
+        </tr>
+        <tr>
+          <td class="cn">어드민·반복<span class="bi">Admin &amp; Repetitive Tasks</span></td>
+          <td><label><input type="radio" name="mq7" value="1"><span class="qbx r1">1Q</span></label></td>
+          <td><label><input type="radio" name="mq7" value="2"><span class="qbx r2">2Q</span></label></td>
+          <td><label><input type="radio" name="mq7" value="3"><span class="qbx r3">3Q</span></label></td>
+          <td><label><input type="radio" name="mq7" value="4"><span class="qbx r4">4Q</span></label></td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="subq" style="margin-top:8px;">
+      <div class="subq-lbl">이 팀원의 업무 중 지금 당장 없애거나 바꿀 수 있다면 무엇인가요? <span style="color:var(--gray);font-size:10px;">(선택 / Optional)</span></div>
+      <div class="subq-en">If you could eliminate or change something in this member's work right now, what would it be?</div>
+      <textarea id="mgrOpenQ" class="sh" placeholder="자유롭게 작성해주세요 / Feel free to write..."></textarea>
+    </div>
+  </div>
+
+<div class="qc" id="mgrQ3" style="display:none">
     <div class="qlbl">Q3 — Manager</div>
     <div class="qt">선택한 팀원이 가장 많은 시간을 써야 한다고 생각하는 업무 TOP 3를 순서대로 선택해주세요. <span class="req">*</span></div>
     <div class="qen">Select the TOP 3 work types where you think the selected team member SHOULD be spending the most time, in order.</div>
@@ -517,7 +634,7 @@ textarea.sh{min-height:52px;}
   </div>
 
   <!-- Q5: High Value / High Effort -->
-  <div class="qc">
+  <div class="qc memberP2">
     <div class="qlbl">Q5</div>
     <div class="qt" id="q5tm">🔴 <strong>가치 높고, 노력 많이 드는</strong> 업무 / High Value, High Effort <span class="req">*</span></div>
     <div class="qt" id="q5tg" style="display:none">🔴 선택한 팀원의 업무 중 <strong>가치 높고, 노력 많이 드는</strong> 것은 무엇인가요? / High Value, High Effort <span class="req">*</span></div>
@@ -535,7 +652,7 @@ textarea.sh{min-height:52px;}
   </div>
 
   <!-- Q6: High Value / Low Effort -->
-  <div class="qc">
+  <div class="qc memberP2">
     <div class="qlbl">Q6</div>
     <div class="qt" id="q6tm">🟢 <strong>가치 높고, 노력 적게 드는</strong> 업무 / High Value, Low Effort <span class="req">*</span></div>
     <div class="qt" id="q6tg" style="display:none">🟢 선택한 팀원의 업무 중 <strong>가치 높고, 노력 적게 드는</strong> 것은 무엇인가요? / High Value, Low Effort <span class="req">*</span></div>
@@ -553,7 +670,7 @@ textarea.sh{min-height:52px;}
   </div>
 
   <!-- Q7: Low Value / High Effort -->
-  <div class="qc">
+  <div class="qc memberP2">
     <div class="qlbl">Q7</div>
     <div class="qt" id="q7tm">🟡 <strong>가치 낮고, 노력 많이 드는</strong> 업무 / Low Value, High Effort <span class="req">*</span></div>
     <div class="qt" id="q7tg" style="display:none">🟡 선택한 팀원의 업무 중 <strong>가치 낮고, 노력 많이 드는</strong> 것은 무엇인가요? / Low Value, High Effort <span class="req">*</span></div>
@@ -571,7 +688,7 @@ textarea.sh{min-height:52px;}
   </div>
 
   <!-- Q8: Low Value / Low Effort -->
-  <div class="qc">
+  <div class="qc memberP2">
     <div class="qlbl">Q8</div>
     <div class="qt" id="q8tm">⚪ <strong>가치 낮고, 노력 적게 드는</strong> 업무 / Low Value, Low Effort <span class="req">*</span></div>
     <div class="qt" id="q8tg" style="display:none">⚪ 선택한 팀원의 업무 중 <strong>가치 낮고, 노력 적게 드는</strong> 것은 무엇인가요? / Low Value, Low Effort <span class="req">*</span></div>
@@ -603,7 +720,10 @@ textarea.sh{min-height:52px;}
       <p>1점(전혀 아님) ~ 5점(매우 그러함) · 1 = Not at all → 5 = Very much so</p>
     </div>
   </div>
-  <div class="qhint" style="margin-bottom:15px;">앞서 답하신 업무들을 떠올리며 응답해주세요 / Please reflect on the work you described when answering.</div>
+  <div class="qhint" style="margin-bottom:15px;background:var(--blk2);color:var(--graylt);border-left:3px solid var(--ydark);line-height:1.8;">
+    개인, 일, 조직구조, 조직문화 간의 관계성을 파악하여 업무에서의 바틀넥을 파악하는 것을 목적으로 합니다. 앞서 답하신 업무들을 떠올리며 응답해주세요.<br>
+    <span style="font-style:italic;color:var(--gray);font-size:10.5px;">This section aims to identify bottlenecks in your work by understanding relationships between people, tasks, organizational structure, and culture.</span>
+  </div>
 
   <!-- Pair 1: Task ↔ People -->
   <div class="ph"><span class="pic">⚙️</span><div><div class="ptit">Task ↔ People</div><div class="psub">개인 역량과 업무 요건의 일치도 / Alignment between individual capability and task requirements</div></div></div>
@@ -754,10 +874,14 @@ textarea.sh{min-height:52px;}
     </div>
   </div>
 
+    <div class="qhint" style="margin-bottom:15px;background:var(--gy4);color:var(--graylt);border-left:3px solid var(--gray);line-height:1.8;">
+    앞선 섹션에서 담기지 않은 어떤 내용이든 자유롭게 작성해 주세요 — 어려움, 제안, 또는 리더십이 알아야 한다고 생각하는 것들을 공유해 주세요.<br>
+    <span style="font-style:italic;color:var(--gray);font-size:10.5px;">Please share anything not captured in the previous sections — challenges, suggestions, or things you think leadership should know.</span>
+  </div>
   <div class="qc">
     <div class="qlbl">Q22</div>
-    <div class="qt">현재 업무 중 AI 또는 자동화로 대체되었으면 하는 업무가 있다면 무엇인가요? <span class="req">*</span></div>
-    <div class="qen">Are there any tasks you wish could be replaced by AI or automation?</div>
+    <div class="qt">현재 업무 중 AI 활용 또는 자동화가 가능할 시 업무효율이 증가될 것으로 예상되는 업무가 있다면 무엇인가요? <span class="req">*</span></div>
+    <div class="qen">Are there any tasks where you expect efficiency to improve through AI or automation?</div>
     <textarea id="q22" placeholder="예: 주간 보고서 초안 작성, 데이터 정리 등..."></textarea>
   </div>
 
@@ -864,8 +988,8 @@ function updTeamOpts() {
   });
 }
 
-const CATS = ['전략·기획','크리에이티브','분석·인사이트','미팅','보고','덱 작업','어드민·반복','운영 업무','코칭 및 피플매니징','1:1 코칭','이해관계자 관리','에드혹 대응','외근','기타'];
-const RANK_CATS = ['전략·기획','크리에이티브','분석·인사이트','미팅','보고','덱 작업','어드민·반복','운영 업무','코칭 및 피플매니징','1:1 코칭','이해관계자 관리','에드혹 대응','외근'];
+const CATS = ['덱 작업','코칭 및 피플매니징','미팅','에드혹 대응','이해관계자 관리','외근','구매 및 비용처리','어드민·반복','기타'];
+const RANK_CATS = ['덱 작업','코칭 및 피플매니징','미팅','에드혹 대응','이해관계자 관리','외근','구매 및 비용처리','어드민·반복'];
 
 // ── STATE ─────────────────────────────────────────────────────────────────────
 let uType = ''; // 'member' | 'manager'
@@ -1011,6 +1135,9 @@ function setupMember() {
     hide(q+'tg'); hide(q+'eg'); hide(q+'blg');
   });
   document.getElementById('p2NextBtn').textContent = '다음 →';
+  // Hide manager matrix, show member Q5-Q8
+  document.getElementById('mgrMatCard').style.display = 'none';
+  document.querySelectorAll('.memberP2').forEach(el => el.style.display = 'block');
 }
 function setupMgr() {
   document.getElementById('tbar').classList.add('on');
@@ -1031,9 +1158,10 @@ function setupMgr() {
   document.getElementById('p2NextBtn').textContent = '제출하기 / Submit ✓';
 }
 const show = id => { const el=document.getElementById(id); if(el) el.style.display='block'; };
-const hide = id => { const el=document.getElementById(id); if(el) el.style.display='none'; };
-
-// ── NAVIGATION ────────────────────────────────────────────────────────────────
+const hide = id => { const el=document.getElementById(id); if(el) el.style.display='none';   // Show manager matrix, hide member Q5-Q8
+  document.getElementById('mgrMatCard').style.display = 'block';
+  document.querySelectorAll('.memberP2').forEach(el => el.style.display = 'none');
+}
 function go(n) {
   document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
   document.getElementById('s'+n).classList.add('on');
@@ -1073,9 +1201,21 @@ function validateP2Member() {
   return true;
 }
 function validateP2Mgr() {
-  if (rMgr.length!==3) { alert('Q3: 팀원이 써야 한다고 생각하는 TOP 3를 선택해주세요 / Please select TOP 3.'); return false; }
-  return validateP2Member();
+  if (rMgr.length!==3) {
+    alert('Q3: 팀원이 써야 한다고 생각하는 TOP 3를 선택해주세요 / Please select TOP 3.');
+    return false;
+  }
+  const cats=['덱 작업','코칭 및 피플매니징','미팅','에드혹 대응',
+              '이해관계자 관리','외근','구매 및 비용처리','어드민·반복'];
+  for (let i=0; i<cats.length; i++) {
+    if (!document.querySelector('input[name="mq'+i+'"]:checked')) {
+      alert('P2: ''+cats[i]+'' 업무의 사분면을 선택해주세요 / Please select a quadrant for ''+cats[i]+''.');
+      return false;
+    }
+  }
+  return true;
 }
+
 function validateP3() {
   const qs = ['q9','q10','q12','q13','q14','q15','q16','q17','q18','q19','q20','q21'];
   for (let q of qs) {
@@ -1224,6 +1364,17 @@ async function submitMgr() {
     team: document.getElementById('fTeam').value, target: v('fTarget'),
     timeAlloc: {},
     q2_cur:'', q3_shd: rMgr.join(' > '), q4:'',
+    mgr_matrix: (function(){
+      const cats=['덱 작업','코칭 및 피플매니징','미팅','에드혹 대응',
+                  '이해관계자 관리','외근','구매 및 비용처리','어드민·반복'];
+      const r={};
+      cats.forEach((cat,i)=>{
+        const sel=document.querySelector('input[name="mq'+i+'"]:checked');
+        r[cat]=sel?sel.value:'';
+      });
+      return JSON.stringify(r);
+    })(),
+    mgr_open: document.getElementById('mgrOpenQ')?document.getElementById('mgrOpenQ').value:'',
     q5_cats:getCats('ch5'), q5a:v('q5a'), q5b:v('q5b'),
     q6_cats:getCats('ch6'), q6a:v('q6a'), q6b:v('q6b'),
     q7_cats:getCats('ch7'), q7a:v('q7a'), q7b:v('q7b'),
@@ -1244,6 +1395,8 @@ async function submitMgr() {
 function continueNextMember() {
   // reset manager P2 fields, keep name/team
   document.getElementById('fTarget').value = '';
+  document.querySelectorAll('.mgr-mat input[type=radio]').forEach(function(r){r.checked=false;});
+  var oq=document.getElementById('mgrOpenQ'); if(oq) oq.value='';
   rMgr = [];
   ['q5a','q5b','q6a','q6b','q7a','q7b','q8a','q8b'].forEach(id => document.getElementById(id).value='');
   ['ch5','ch6','ch7','ch8'].forEach(id => document.querySelectorAll('#'+id+' .chip').forEach(c=>c.classList.remove('sel')));
@@ -1332,82 +1485,39 @@ async function checkAccess() {
     return;
   }
 
-  // Show loading state
   btn.textContent = '확인 중... / Verifying...';
   btn.disabled = true;
   errEl.style.display = 'none';
 
   try {
     const url = GS_URL + '?action=verify&code=' + encodeURIComponent(input);
-    const res  = await fetch(url, { method: 'GET', mode: 'no-cors' });
+    const res = await fetch(url, { method: 'GET' });
+    const data = await res.json();
 
-    // no-cors: can't read response body
-    // Use a 2-step approach: send code and get token back via redirect
-    // Since no-cors blocks response, use a hidden iframe trick instead
-    // → Fallback: verify via separate GET with cors mode on allowed domain
-    throw new Error('no-cors-fallback');
-
-  } catch(e) {
-    // Fallback: use a JSONP-style approach via script tag
-    verifyWithScript(input);
-  }
-}
-
-function verifyWithScript(code) {
-  const btn   = document.querySelector('#sAccess button');
-  const errEl = document.getElementById('accessError');
-
-  // Create unique callback name
-  const cbName = 'gsVerifyCb_' + Date.now();
-
-  // Set timeout (5 seconds)
-  const timer = setTimeout(() => {
-    cleanup();
-    btn.textContent = '입장하기 / Enter Survey →';
-    btn.disabled = false;
-    errEl.textContent = '⚠ 서버 연결 오류입니다. 잠시 후 다시 시도해주세요 / Server error. Please try again.';
-    errEl.style.display = 'block';
-  }, 5000);
-
-  function cleanup() {
-    clearTimeout(timer);
-    delete window[cbName];
-    const old = document.getElementById('gsVerifyScript');
-    if (old) old.remove();
-  }
-
-  // Define callback
-  window[cbName] = function(result) {
-    cleanup();
     btn.textContent = '입장하기 / Enter Survey →';
     btn.disabled = false;
 
-    if (result && result.verified === true) {
-      // ✅ Correct — proceed to survey
+    if (data && data.verified === true) {
       errEl.style.display = 'none';
       document.getElementById('sAccess').classList.remove('on');
       document.getElementById('s0').classList.add('on');
       document.getElementById('prog').style.width = '0%';
     } else {
-      // ❌ Wrong code
       errEl.textContent = '⚠ 코드가 올바르지 않습니다 / Incorrect access code. Please try again.';
       errEl.style.display = 'block';
       const inp = document.getElementById('accessInput');
       inp.style.borderColor = '#E05C00';
       inp.value = '';
       inp.focus();
-      setTimeout(() => { inp.style.borderColor = 'var(--graylt)'; }, 1500);
+      setTimeout(function(){ inp.style.borderColor = 'var(--graylt)'; }, 1500);
     }
-  };
-
-  // Inject script tag (JSONP-style, bypasses CORS)
-  const script = document.createElement('script');
-  script.id  = 'gsVerifyScript';
-  script.src = GS_URL
-    + '?action=verify'
-    + '&code=' + encodeURIComponent(code)
-    + '&callback=' + cbName;
-  document.body.appendChild(script);
+  } catch (err) {
+    // Network/CORS failure — show retry message
+    btn.textContent = '입장하기 / Enter Survey →';
+    btn.disabled = false;
+    errEl.textContent = '⚠ 서버 연결 오류입니다. 잠시 후 다시 시도해주세요 / Server connection error. Please try again.';
+    errEl.style.display = 'block';
+  }
 }
 
 updAdmin(); updSum();
