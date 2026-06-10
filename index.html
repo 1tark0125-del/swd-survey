@@ -1477,7 +1477,6 @@ function showSendStatus(success) {
 function checkAccess() {
   const input = document.getElementById('accessInput').value.trim();
   const errEl = document.getElementById('accessError');
-  const btn   = document.querySelector('#sAccess button');
 
   if (!input) {
     errEl.textContent = '⚠ 코드를 입력해주세요 / Please enter the access code.';
@@ -1485,70 +1484,25 @@ function checkAccess() {
     return;
   }
 
-  btn.textContent = '확인 중... / Verifying...';
-  btn.disabled = true;
-  errEl.style.display = 'none';
+  // 클라이언트 검증 (base64) — 즉시 작동, 서버 불필요
+  var ok = false;
+  try { ok = (btoa(input) === 'b2Jta3QyMDI2'); } catch(e) { ok = (input === 'obmkt2026'); }
 
-  // JSONP 방식 — 고유 콜백 함수명 생성
-  const cbName = 'gsCb_' + Date.now();
-  let done = false;
-
-  // 8초 타임아웃
-  const timer = setTimeout(function(){
-    if (done) return;
-    done = true;
-    cleanup();
-    btn.textContent = '입장하기 / Enter Survey →';
-    btn.disabled = false;
-    errEl.textContent = '⚠ 서버 응답이 없습니다. 다시 시도해주세요 / No server response. Please try again.';
+  if (ok) {
+    errEl.style.display = 'none';
+    document.getElementById('sAccess').classList.remove('on');
+    document.getElementById('s0').classList.add('on');
+    var prog = document.getElementById('prog');
+    if (prog) prog.style.width = '0%';
+  } else {
+    errEl.textContent = '⚠ 코드가 올바르지 않습니다 / Incorrect access code. Please try again.';
     errEl.style.display = 'block';
-  }, 8000);
-
-  function cleanup() {
-    clearTimeout(timer);
-    try { delete window[cbName]; } catch(e) { window[cbName] = undefined; }
-    const s = document.getElementById('gsCbScript');
-    if (s && s.parentNode) s.parentNode.removeChild(s);
+    var inp = document.getElementById('accessInput');
+    inp.style.borderColor = '#E05C00';
+    inp.value = '';
+    inp.focus();
+    setTimeout(function(){ inp.style.borderColor = 'var(--graylt)'; }, 1500);
   }
-
-  // 콜백 정의
-  window[cbName] = function(data) {
-    if (done) return;
-    done = true;
-    cleanup();
-    btn.textContent = '입장하기 / Enter Survey →';
-    btn.disabled = false;
-
-    if (data && data.verified === true) {
-      errEl.style.display = 'none';
-      document.getElementById('sAccess').classList.remove('on');
-      document.getElementById('s0').classList.add('on');
-      document.getElementById('prog').style.width = '0%';
-    } else {
-      errEl.textContent = '⚠ 코드가 올바르지 않습니다 / Incorrect access code. Please try again.';
-      errEl.style.display = 'block';
-      const inp = document.getElementById('accessInput');
-      inp.style.borderColor = '#E05C00';
-      inp.value = '';
-      inp.focus();
-      setTimeout(function(){ inp.style.borderColor = 'var(--graylt)'; }, 1500);
-    }
-  };
-
-  // script 태그 주입 — onerror로 Script error 방지
-  const script = document.createElement('script');
-  script.id = 'gsCbScript';
-  script.src = GS_URL + '?action=verify&code=' + encodeURIComponent(input) + '&callback=' + cbName;
-  script.onerror = function() {
-    if (done) return;
-    done = true;
-    cleanup();
-    btn.textContent = '입장하기 / Enter Survey →';
-    btn.disabled = false;
-    errEl.textContent = '⚠ 서버 연결 오류입니다. 다시 시도해주세요 / Server connection error. Please try again.';
-    errEl.style.display = 'block';
-  };
-  document.body.appendChild(script);
 }
 
 updAdmin(); updSum();
