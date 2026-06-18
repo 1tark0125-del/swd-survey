@@ -1339,10 +1339,10 @@ function buildRank(id, type) {
     }
   });
 }
-['ch5','ch6','ch7','ch8'].forEach(buildChips);
+['ch5','ch6','ch7','ch8'].forEach(function(id){ buildChips(id); });
 buildRank('rCurrent','cur');
 buildRank('rShould','shd');
-buildRank('rMgrShould','mgr');
+if (document.getElementById('rMgrShould')) buildRank('rMgrShould','mgr');
 
 
 function syncChipStates() {
@@ -1505,11 +1505,11 @@ function setupMgr() {
   // Show manager matrix, hide member Q5-Q8
   document.getElementById('mgrMatCard').style.display = 'block';
   document.querySelectorAll('.memberP2').forEach(el => el.style.display = 'none');
+  buildMgrMatrix();
 }
 
 const show = id => { const el=document.getElementById(id); if(el) el.style.display='block'; };
-const hide = id => { const el=document.getElementById(id); if(el) el.style.display='none';   buildMgrMatrix();
-};
+const hide = id => { const el=document.getElementById(id); if(el) el.style.display='none'; };
 function go(n) {
   document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
   document.getElementById('s'+n).classList.add('on');
@@ -1708,7 +1708,7 @@ async function submitMember() {
   go(5);
 }
 
-async function submitMgr() {
+async async function submitMgr() {
   const resp = {
     ts: new Date().toLocaleString('ko-KR'), type:'manager',
     name: v('fName'),
@@ -1752,7 +1752,7 @@ function continueNextMember() {
   if (typeof updateP1Tables === 'function') updateP1Tables();
   var oq=document.getElementById('mgrOpenQ'); if(oq) oq.value='';
   rMgr = [];
-  ['q5a','q5b','q6a','q6b','q7a','q7b','q8a','q8b'].forEach(id => document.getElementById(id).value='');
+  ['q5b','q6b','q7b','q8b'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
   ['ch5','ch6','ch7','ch8'].forEach(id => document.querySelectorAll('#'+id+' .chip').forEach(c=>c.classList.remove('sel')));
   buildRank('rMgrShould','mgr');
   go(0);
