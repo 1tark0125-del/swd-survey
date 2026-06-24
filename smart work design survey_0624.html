@@ -1,0 +1,1937 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart-Work Design — OB 마케팅 부문</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Bebas+Neue&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+:root {
+  --black:    #0D0D0D;
+  --blk2:     #1A1A1A;
+  --blk3:     #2A2A2A;
+  --yellow:   #F5C800;
+  --ydark:    #C49E00;
+  --ypale:    #FFFAE6;
+  --gy1:      #F0F0EE; /* P1: 회색 bg */
+  --gy1b:     #DDDDDA; /* P1 border */
+  --gy1t:     #4A4A4A; /* P1 text */
+  --gy4:      #3A3A3A; /* P4 bg */
+  --gy4b:     #2A2A2A;
+  --gy4t:     #F0F0EE;
+  --gray:     #888;
+  --graylt:   #E0E0E0;
+  --graymid:  #555;
+  --white:    #FFF;
+  --offwh:    #F9F9F7;
+  --red:      #CC2200;
+  --redsft:   #FDECEA;
+  --green:    #1A7A3A;
+  --greensft: #E6F4EC;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--offwh);color:var(--black);min-height:100vh;}
+
+/* HEADER */
+.hdr{background:var(--black);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.5);}
+.hdr-in{max-width:900px;margin:0 auto;padding:11px 22px;display:flex;align-items:center;justify-content:space-between;}
+.logo-abi{background:var(--yellow);color:var(--black);font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1px;padding:4px 9px;border-radius:3px;}
+.logo-ob{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--yellow);letter-spacing:2px;border-left:2px solid #555;padding-left:13px;}
+.logos{display:flex;align-items:center;gap:12px;}
+.hdr-title{font-family:'Bebas Neue',sans-serif;font-size:21px;color:var(--white);letter-spacing:2px;text-align:right;}
+.hdr-title span{color:var(--yellow);}
+.hdr-sub{font-size:9.5px;color:var(--gray);text-align:right;}
+.prog-wrap{background:var(--blk3);height:3px;}
+.prog-bar{height:3px;background:var(--yellow);transition:width .4s ease;width:0%;}
+
+/* LAYOUT */
+.wrap{max-width:900px;margin:0 auto;padding:26px 22px 80px;}
+.scr{display:none;}.scr.on{display:block;}
+.bi{display:block;font-size:10.5px;color:var(--gray);margin-top:2px;font-style:italic;font-weight:300;}
+
+/* INTRO CARD */
+.card{background:var(--white);border-radius:10px;overflow:hidden;box-shadow:0 4px 22px rgba(0,0,0,.09);}
+.hero{background:var(--black);padding:40px 38px;position:relative;overflow:hidden;border-bottom:4px solid var(--yellow);}
+.hero::before{content:'SMART\AWORK';white-space:pre;position:absolute;right:-8px;top:-8px;font-family:'Bebas Neue',sans-serif;font-size:85px;color:rgba(245,200,0,.06);line-height:1;pointer-events:none;}
+.hero-badge{display:inline-block;background:var(--yellow);color:var(--black);font-family:'Bebas Neue',sans-serif;font-size:11px;letter-spacing:2px;padding:3px 9px;border-radius:2px;margin-bottom:12px;}
+.hero h1{font-family:'Bebas Neue',sans-serif;font-size:38px;color:var(--white);letter-spacing:3px;line-height:1.1;margin-bottom:7px;}
+.hero h1 span{color:var(--yellow);}
+.hero p{color:var(--gray);font-size:12.5px;font-weight:300;}
+.body{padding:30px 38px;}
+
+/* NOTICE */
+.notice{background:var(--ypale);border-left:4px solid var(--yellow);border-radius:6px;padding:15px 18px;margin-bottom:22px;font-size:12.5px;line-height:1.8;color:var(--blk2);}
+.notice strong{font-size:13px;display:block;margin-bottom:5px;}
+.mgr-notice{background:var(--black);color:var(--yellow);border-left:4px solid var(--yellow);border-radius:6px;padding:13px 17px;margin-bottom:18px;font-size:12.5px;line-height:1.7;display:none;}
+.mgr-notice.on{display:block;}
+.mgr-notice strong{color:var(--white);}
+.mgr-notice .sub{color:var(--gray);font-style:italic;font-size:11px;}
+
+/* PARTS GRID — P1 회색 / P2 노란색 / P3 진한노란색 / P4 진한회색 */
+.parts{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:26px;}
+.pt{border-radius:7px;padding:12px 14px;font-size:12px;line-height:1.5;border:1.5px solid transparent;}
+.pt strong{display:block;font-size:10.5px;font-weight:700;margin-bottom:3px;letter-spacing:.5px;font-family:'JetBrains Mono',monospace;}
+.pt.p1{background:var(--gy1);border-color:var(--gy1b);color:var(--gy1t);}
+.pt.p1 strong{color:#333;}
+.pt.p2{background:var(--ypale);border-color:var(--yellow);color:#6B5400;}
+.pt.p2 strong{color:var(--black);}
+.pt.p3{background:var(--ydark);border-color:var(--ydark);color:var(--black);}
+.pt.p3 strong{color:var(--black);}
+.pt.p4{background:var(--gy4);border-color:var(--gy4b);color:var(--gy4t);}
+.pt.p4 strong{color:var(--yellow);}
+
+/* TYPE BUTTONS */
+.type-row{display:flex;gap:11px;margin-bottom:18px;}
+.type-btn{flex:1;padding:14px;border:2px solid var(--graylt);border-radius:8px;background:var(--white);cursor:pointer;text-align:center;transition:all .2s;font-family:'Noto Sans KR',sans-serif;}
+.type-btn:hover{border-color:var(--yellow);}
+.type-btn.sel{border-color:var(--yellow);background:var(--ypale);}
+.type-btn .ico{font-size:24px;margin-bottom:5px;}
+.type-btn .lbl{font-size:13.5px;font-weight:700;color:var(--black);}
+.type-btn .dsc{font-size:10px;color:var(--gray);margin-top:2px;}
+
+/* INFO ROW */
+.irow{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:22px;}
+.fg label{display:block;font-size:11px;font-weight:700;color:var(--graymid);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;}
+.fg label .req{color:var(--red);}
+.fg input,.fg select{width:100%;padding:10px 12px;border:1.5px solid var(--graylt);border-radius:7px;font-family:'Noto Sans KR',sans-serif;font-size:13px;color:var(--black);background:var(--white);transition:border-color .2s;appearance:none;}
+.fg input:focus,.fg select:focus{outline:none;border-color:var(--yellow);box-shadow:0 0 0 3px rgba(245,200,0,.14);}
+
+/* TARGET BAR (manager) */
+.tbar{background:var(--black);color:var(--white);border-radius:8px;padding:13px 17px;margin-bottom:16px;display:none;align-items:center;justify-content:space-between;gap:12px;box-shadow:0 2px 10px rgba(0,0,0,.15);}
+.tbar.on{display:flex;}
+.tbar-info{font-size:12.5px;}
+.tbar-info strong{color:var(--yellow);font-size:14px;display:block;margin-top:2px;}
+.tbar-info .en{color:var(--gray);font-size:10px;font-style:italic;margin-top:2px;}
+.tbar-count{background:var(--yellow);color:var(--black);padding:4px 10px;border-radius:14px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;white-space:nowrap;}
+
+/* SECTION HEADER */
+.sh{display:flex;align-items:center;gap:13px;margin-bottom:20px;padding-bottom:13px;border-bottom:2px solid var(--graylt);}
+.sbadge{width:38px;height:38px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:1px;flex-shrink:0;}
+.sb-p1{background:var(--gy1);color:var(--gy1t);border:1.5px solid var(--gy1b);}
+.sb-p2{background:var(--yellow);color:var(--black);}
+.sb-p3{background:var(--ydark);color:var(--black);}
+.sb-p4{background:var(--gy4);color:var(--yellow);}
+.sh-txt h2{font-size:16px;font-weight:700;color:var(--black);}
+.sh-txt p{font-size:11px;color:var(--gray);margin-top:2px;}
+
+/* Q CARD */
+.qc{background:var(--white);border-radius:9px;padding:18px 20px;margin-bottom:11px;box-shadow:0 1px 5px rgba(0,0,0,.06);border-left:4px solid transparent;transition:border-color .2s;}
+.qc:focus-within{border-left-color:var(--yellow);}
+.qlbl{font-size:10.5px;font-weight:700;color:var(--gray);margin-bottom:6px;font-family:'JetBrains Mono',monospace;letter-spacing:.5px;}
+.qt{font-size:13.5px;color:var(--black);line-height:1.65;margin-bottom:5px;font-weight:500;}
+.qt .req{color:var(--red);}
+.qen{font-size:11px;color:var(--gray);font-style:italic;margin-bottom:11px;line-height:1.5;}
+.qhint{font-size:11px;color:var(--graymid);background:var(--offwh);border-radius:5px;padding:7px 10px;margin-bottom:11px;line-height:1.6;}
+
+/* CONSTANT SUM */
+.cst{width:100%;border-collapse:collapse;}
+.cst th{font-size:10px;font-weight:700;color:var(--gray);text-transform:uppercase;letter-spacing:.5px;padding:5px 9px;text-align:left;border-bottom:1.5px solid var(--graylt);}
+.cst th:last-child{text-align:right;width:82px;}
+.cst td{padding:6px 9px;border-bottom:1px solid var(--offwh);font-size:12.5px;color:var(--black);}
+.cst td:last-child{text-align:right;}
+.cst tr:last-child td{border-bottom:none;}
+.csi{width:65px;text-align:center;padding:5px 7px;border:1.5px solid var(--graylt);border-radius:5px;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--black);transition:border-color .2s;}
+.csi:focus{outline:none;border-color:var(--yellow);}
+.oth-inp{padding:5px 9px;}
+.oth-txt{width:100%;padding:6px 9px;border:1.5px solid var(--yellow);border-radius:5px;font-family:'Noto Sans KR',sans-serif;font-size:12px;color:var(--black);margin-top:3px;}
+.oth-txt:focus{outline:none;}
+.sum-row{display:flex;justify-content:space-between;align-items:center;margin-top:9px;padding:8px 12px;border-radius:7px;background:#F5F5F5;font-size:12px;font-weight:700;}
+.sum-row .snum{font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--graymid);}
+.sum-row.done{background:var(--greensft);}.sum-row.done .snum{color:var(--green);}
+.sum-row.over{background:var(--redsft);}.sum-row.over .snum{color:var(--red);}
+
+/* CAT CHIPS */
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:11px;}
+.chip{padding:5px 12px;border:1.5px solid var(--graylt);border-radius:18px;font-size:11.5px;cursor:pointer;transition:all .15s;background:var(--white);color:var(--blk2);user-select:none;}
+.chip:hover{border-color:var(--yellow);}
+.chip.sel{background:var(--yellow);border-color:var(--yellow);color:var(--black);font-weight:700;}
+
+/* RANK */
+.rank-opts{display:flex;flex-wrap:wrap;gap:6px;}
+.rchip{padding:6px 12px;border:1.5px solid var(--graylt);border-radius:17px;font-size:11.5px;cursor:pointer;transition:all .15s;background:var(--white);color:var(--black);}
+.rchip:hover{border-color:var(--yellow);}
+.rchip.ranked{background:var(--black);border-color:var(--black);color:var(--white);}
+.rnum{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;background:var(--yellow);color:var(--black);border-radius:50%;font-size:9px;font-weight:700;margin-right:4px;font-family:'JetBrains Mono',monospace;}
+
+/* LIKERT */
+.lkrt-lbl{display:flex;justify-content:space-between;font-size:9.5px;color:var(--gray);margin-bottom:4px;}
+.lkrt{display:flex;gap:6px;}
+.lb{flex:1;padding:9px 3px;border:1.5px solid var(--graylt);border-radius:6px;background:var(--white);cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:600;color:var(--gray);transition:all .15s;text-align:center;}
+.lb:hover{border-color:var(--yellow);color:var(--black);}
+.lb.s-lo{background:var(--red);border-color:var(--red);color:var(--white);}
+.lb.s-mi{background:var(--graymid);border-color:var(--graymid);color:var(--white);}
+.lb.s-hi{background:var(--black);border-color:var(--black);color:var(--yellow);}
+
+/* PAIR HEADER */
+.ph{background:var(--black);color:var(--white);border-radius:7px;padding:10px 14px;margin-bottom:9px;margin-top:18px;font-size:12px;font-weight:700;display:flex;align-items:flex-start;gap:9px;}
+.ph .pic{font-size:14px;margin-top:1px;}
+.ph .ptit{color:var(--yellow);font-size:12.5px;}
+.ph .psub{font-weight:300;opacity:.6;font-size:10px;margin-top:2px;}
+
+/* SUB Q */
+.subq{margin-top:11px;}
+.subq-lbl{font-size:11px;color:var(--graymid);margin-bottom:4px;font-weight:500;}
+.subq-lbl .req{color:var(--red);}
+.subq-en{font-size:10px;color:var(--gray);font-style:italic;margin-bottom:5px;}
+textarea{width:100%;border:1.5px solid var(--graylt);border-radius:7px;padding:10px 12px;font-family:'Noto Sans KR',sans-serif;font-size:12.5px;color:var(--black);resize:vertical;min-height:72px;transition:border-color .2s;line-height:1.6;}
+textarea:focus{outline:none;border-color:var(--yellow);box-shadow:0 0 0 3px rgba(245,200,0,.11);}
+textarea.sh{min-height:52px;}
+
+/* NAV */
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:26px;gap:11px;}
+.btn{padding:12px 24px;border-radius:8px;border:none;font-family:'Noto Sans KR',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;}
+.btn-p{background:var(--black);color:var(--yellow);flex:1;}
+.btn-p:hover{background:var(--blk3);transform:translateY(-1px);}
+.btn-s{background:var(--white);color:var(--graymid);border:1.5px solid var(--graylt);}
+.btn-s:hover{border-color:var(--black);color:var(--black);}
+.btn-sub{background:var(--yellow);color:var(--black);}
+.btn-sub:hover{background:#FFD700;transform:translateY(-1px);}
+.btn-nxt{background:var(--ydark);color:var(--black);flex:1;}
+.btn-nxt:hover{background:var(--yellow);transform:translateY(-1px);}
+
+/* COMPLETE */
+.done-card{background:var(--white);border-radius:10px;padding:50px 38px;text-align:center;box-shadow:0 4px 22px rgba(0,0,0,.08);}
+.done-card .ico{font-size:58px;margin-bottom:16px;}
+.done-card h2{font-family:'Bebas Neue',sans-serif;font-size:30px;color:var(--black);letter-spacing:2px;margin-bottom:9px;}
+.done-card h2 span{color:var(--yellow);}
+.done-card p{color:var(--graymid);font-size:13px;line-height:1.8;}
+.divline{width:55px;height:3px;background:var(--yellow);margin:18px auto;}
+
+/* ADMIN */
+.adm-btn{position:fixed;bottom:20px;right:20px;background:var(--black);color:var(--yellow);border:2px solid var(--yellow);border-radius:50%;width:44px;height:44px;font-size:17px;cursor:pointer;box-shadow:0 4px 14px rgba(0,0,0,.25);z-index:200;transition:transform .2s;}
+.adm-btn:hover{transform:scale(1.1);}
+.adm-panel{position:fixed;bottom:74px;right:20px;background:var(--black);border-radius:10px;box-shadow:0 8px 30px rgba(0,0,0,.3);padding:16px;width:230px;z-index:200;display:none;border:1px solid var(--blk3);}
+.adm-panel.on{display:block;}
+.adm-panel h3{font-size:11.5px;font-weight:700;color:var(--yellow);margin-bottom:9px;padding-bottom:7px;border-bottom:1px solid var(--blk3);font-family:'Bebas Neue',sans-serif;letter-spacing:1px;}
+.astat{display:flex;justify-content:space-between;font-size:11.5px;padding:3px 0;color:var(--gray);}
+.astat strong{font-family:'JetBrains Mono',monospace;color:var(--yellow);}
+
+@media(max-width:600px){
+  .parts{grid-template-columns:1fr;}
+  .irow{grid-template-columns:1fr;}
+  .type-row{flex-direction:column;}
+  .hero{padding:26px 20px;}
+  .body{padding:20px;}
+  .wrap{padding:16px 13px 60px;}
+  .hero::before{font-size:55px;}
+  .tbar{flex-direction:column;align-items:flex-start;}
+}
+
+  /* Manager P2 Matrix */
+  .mgr-mat{width:100%;border-collapse:collapse;margin-bottom:14px;}
+  .mgr-mat th{font-size:9px;font-weight:700;color:var(--white);background:var(--blk3);padding:6px 3px;text-align:center;border:1px solid var(--blk4);}
+  .mgr-mat th.ch{text-align:left;width:38%;background:var(--black);padding-left:10px;}
+  .mgr-mat td{padding:5px 3px;border:1px solid var(--blk3);text-align:center;background:var(--white);}
+  .mgr-mat td.cn{text-align:left;font-size:11.5px;font-weight:500;color:var(--white);background:var(--blk2);padding:7px 8px 7px 10px;vertical-align:top;}
+  .mgr-mat tr:nth-child(even) td.cn{background:var(--blk3);}
+  .mgr-mat label{display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;font-size:9px;color:var(--graymid);}
+  .mgr-mat input[type=radio]{display:none;}
+  .qbx{width:26px;height:26px;border-radius:5px;border:2px solid var(--graylt);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;transition:all .15s;background:var(--white);color:var(--graymid);}
+  .mgr-mat input[type=radio]:checked+.qbx.r1{background:#CC2200;border-color:#CC2200;color:var(--white);}
+  .mgr-mat input[type=radio]:checked+.qbx.r2{background:#1A7A3A;border-color:#1A7A3A;color:var(--white);}
+  .mgr-mat input[type=radio]:checked+.qbx.r3{background:var(--graymid);border-color:var(--graymid);color:var(--white);}
+  .mgr-mat input[type=radio]:checked+.qbx.r4{background:var(--ydark);border-color:var(--ydark);color:var(--black);}
+  .mgr-mat label:hover .qbx{border-color:var(--yellow);}
+
+/* CHIP TOOLTIP */
+.chip-wrap{position:relative;display:inline-flex;align-items:center;gap:3px;}
+.chip-info{display:inline-flex;align-items:center;justify-content:center;
+  width:15px;height:15px;border-radius:50%;background:var(--ydark);
+  color:var(--black);font-size:9px;cursor:pointer;flex-shrink:0;
+  border:1px solid var(--yellow);line-height:1;font-style:italic;font-weight:700;opacity:.75;}
+.chip-info:hover{background:var(--yellow);color:var(--black);opacity:1;}
+.chip-tooltip{display:none;position:absolute;bottom:calc(100% + 6px);left:0;
+  background:var(--blk2);color:var(--graylt);font-size:10.5px;
+  padding:8px 11px;border-radius:7px;border:1px solid var(--blk3);
+  width:220px;line-height:1.6;z-index:999;pointer-events:none;
+  box-shadow:0 4px 12px rgba(0,0,0,.4);}
+.chip-tooltip::after{content:'';position:absolute;top:100%;left:12px;
+  border:5px solid transparent;border-top-color:var(--blk2);}
+.chip-info:hover + .chip-tooltip,
+.chip-wrap:hover .chip-tooltip{display:block;}
+
+  .team-cat-row td:first-child { font-size: 12px; }
+  .team-cat-row td .bi { color: var(--gray); }
+
+  .mgr-cat-desc{display:block;font-size:9px;color:var(--gray);font-weight:400;margin-top:3px;line-height:1.45;}
+  .mgr-mat tr.team-cat-row td.cn .mgr-cat-desc{color:var(--gray);}
+
+  .chip.disabled{opacity:.32;cursor:not-allowed;pointer-events:none;
+    border-color:var(--gray) !important;background:var(--blk2) !important;
+    color:var(--gray) !important;}
+  .chip.disabled .chip-desc{color:var(--blk4) !important;}
+.cat-tip{display:block;font-size:9.5px;color:var(--gray);margin-top:2px;font-weight:400;line-height:1.4;}
+</style>
+</head>
+<body>
+
+<header class="hdr">
+  <div class="hdr-in">
+    <div class="logos">
+      <div class="logo-abi">AB InBev</div>
+      <div class="logo-ob">OB</div>
+    </div>
+    <div>
+      <div class="hdr-title">SMART-<span>WORK</span> DESIGN</div>
+      <div class="hdr-sub"></div>
+    </div>
+  </div>
+  <div class="prog-wrap"><div class="prog-bar" id="prog"></div></div>
+</header>
+
+<div class="wrap">
+
+<!-- ══ SCREEN ACCESS: 접근 코드 ══ -->
+<div class="scr on" id="sAccess">
+  <div class="card" style="max-width:480px;margin:60px auto;">
+    <div style="background:var(--black);padding:36px 38px;border-bottom:4px solid var(--yellow);text-align:center;position:relative;overflow:hidden;">
+      <div style="font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--white);letter-spacing:2px;line-height:1.15;">SMART-<span style="color:var(--yellow);">WORK</span><br>DESIGN</div>
+      <div style="font-size:11px;color:var(--gray);margin-top:8px;font-style:italic;">OB Marketing Division</div>
+    </div>
+    <div style="padding:32px 36px;background:var(--blk2);">
+      <div style="font-size:13px;font-weight:700;color:var(--white);margin-bottom:6px;">
+        접근 코드 입력 / Enter Access Code
+      </div>
+      <div style="font-size:11px;color:var(--gray);margin-bottom:20px;font-style:italic;">
+        이 설문은 OB 마케팅 부문 구성원 전용입니다.<br>
+        This survey is exclusively for OB Marketing Division members.
+      </div>
+      <input type="password" id="accessInput"
+        placeholder="접근 코드를 입력하세요 / Enter access code"
+        style="width:100%;padding:13px 15px;border:1.5px solid var(--graylt);border-radius:7px;
+               font-family:'Noto Sans KR',sans-serif;font-size:14px;color:var(--black);
+               background:var(--white);margin-bottom:10px;letter-spacing:3px;
+               transition:border-color .2s;outline:none;"
+        onkeydown="if(event.key==='Enter') checkAccess()"
+        onfocus="this.style.borderColor='var(--yellow)'"
+        onblur="this.style.borderColor='var(--graylt)'">
+      <div id="accessError" style="color:#E05C00;font-size:11.5px;margin-bottom:10px;display:none;font-weight:700;">
+        ⚠ 코드가 올바르지 않습니다 / Incorrect access code. Please try again.
+      </div>
+      <button onclick="checkAccess()"
+        style="width:100%;padding:13px;background:var(--yellow);color:var(--black);
+               border:none;border-radius:8px;font-family:'Noto Sans KR',sans-serif;
+               font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;letter-spacing:.3px;"
+        onmouseover="this.style.background='#FFD700'"
+        onmouseout="this.style.background='var(--yellow)'">
+        입장하기 / Enter Survey →
+      </button>
+      <div style="margin-top:20px;padding-top:16px;border-top:1px solid var(--blk3);
+                  font-size:10px;color:var(--gray);text-align:center;font-style:italic;">
+        접근 코드는 Culture &amp; Capabilities 팀에게 문의 부탁드립니다.<br>
+        Please contact the Culture &amp; Capabilities team for the access code.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SCREEN 0: INTRO ══ -->
+<div class="scr" id="s0">
+<div class="card">
+  <div class="hero">
+    <div class="hero-badge">SURVEY · 설문조사</div>
+    <h1>SMART-<span>WORK</span><br>DESIGN</h1>
+    <p>OB 마케팅 부문 · OB Marketing Division</p>
+  </div>
+  <div class="body">
+
+    <div class="notice">
+      <strong>📋 설문 안내 / Survey Notice</strong>
+      Smart-Work Design Survey는 OB 마케팅 부문 구성원의 실제 워크로드와 업무 내용을 분석하여 구성원들의 Work and Life Balance를 개선하고, 모두가 성장할 수 있는 일하는 환경과 문화를 구축하기 위한 기초자료로 활용될 예정입니다. 응답 내용은 개인 평가 목적으로 활용되지 않음을 안내드리며, 더 나은 마케팅 조직을 만들기 위해 솔직한 응답 부탁드립니다.
+      
+    </div>
+
+    <!-- Quick Guide -->
+    <div style="background:var(--blk2);border-radius:8px;padding:16px 20px;margin-bottom:22px;border-left:4px solid var(--yellow);">
+      <div style="font-size:12px;font-weight:700;color:var(--yellow);margin-bottom:11px;letter-spacing:.5px;">📌 시작 전, 아래 사항을 확인해 주세요 / Quick Guide</div>
+      <div style="font-size:12px;color:var(--graylt);line-height:1.95;">
+        <div>✅&nbsp; 이름 입력란에 <strong style="color:var(--white);">한국어 성함</strong>을 입력해 주세요</div>
+        <div>✅&nbsp; 서베이의 <strong style="color:var(--white);">모든 문항</strong>에 빠짐없이 응답해 주세요</div>
+        <div>⏱&nbsp; 예상 소요 시간: <strong style="color:var(--white);">구성원 — 약 20분</strong> / <strong style="color:var(--white);">팀장 — 약 35분</strong></div>
+        <div style="margin-top:7px;padding-top:8px;border-top:1px solid var(--blk3);">
+          👤&nbsp; <strong style="color:var(--white);">구성원:</strong> 구성원 서베이만 진행하시면 됩니다<br>
+          <span style="padding-left:22px;color:var(--gray);font-size:11px;font-style:italic;">Members: Please complete the Member Survey only.</span>
+        </div>
+        <div style="margin-top:5px;">
+          👥&nbsp; <strong style="color:var(--white);">팀장:</strong> 매니저 서베이와 구성원 서베이 모두 진행해 주세요<br>
+          <span style="padding-left:22px;color:var(--gray);font-size:11px;font-style:italic;">Managers: Please complete both the Manager Survey and the Member Survey.</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Manager-only notice -->
+    <div class="mgr-notice" id="mgrNotice">
+      <strong>📌 매니저 응답 안내 / Manager Instructions</strong><br>
+      본인의 직속 팀원별로 각각 답변 입력이 필수입니다.<br>
+      <span class="sub">Each direct team member requires a separate individual survey submission.</span><br>
+      <strong style="color:var(--yellow);">예시:</strong> 팀원이 3명일 경우 → 3개의 설문을 각각 입력하셔야 합니다.<br>
+      <span class="sub">Example: If you have 3 direct reports, you must submit 3 separate surveys.</span>
+    </div>
+
+    <!-- Parts overview: member -->
+    <div class="parts" id="pgMember" style="display:none">
+      <div class="pt p1"><strong>PART 1</strong>업무 시간 배분</div>
+      <div class="pt p2"><strong>PART 2</strong>현재 업무의 가치–시간투자 분류</div>
+      <div class="pt p3"><strong>PART 3</strong>조직구조 및 문화 일치도</div>
+      <div class="pt p4"><strong>PART 4</strong>Pain Point &amp; 개선 의견</div>
+    </div>
+
+    <!-- Parts overview: manager -->
+    <div class="parts" id="pgManager" style="display:none">
+      <div class="pt p2" style="grid-column:span 2"><strong>STEP 1</strong>팀원이 써야 한다고 생각하는 업무 우선순위 TOP 3</div>
+      <div class="pt p3" style="grid-column:span 2"><strong>STEP 2</strong>선택한 팀원의 업무 가치–노력 분류</div>
+    </div>
+
+    <!-- Respondent type -->
+    <div style="margin-bottom:20px;">
+      <div class="fg" style="margin-bottom:8px;"><label>응답자 유형 / Respondent Type <span class="req">*</span></label></div>
+      <div class="type-row">
+        <div class="type-btn" onclick="setType('member')" id="tMember">
+          <div class="ico">👤</div>
+          <div class="lbl">구성원 / Member</div>
+          <div class="dsc">본인의 업무에 대해 응답 · Respond about your own work</div>
+        </div>
+        <div class="type-btn" onclick="setType('manager')" id="tManager">
+          <div class="ico">👥</div>
+          <div class="lbl">매니저 / Manager</div>
+          <div class="dsc">직속 팀원별로 각각 응답 · Respond for each direct report individually</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="irow">
+      <div class="fg"><label>이름 / Name <span class="req">*</span></label><input type="text" id="fName" placeholder="한국어 성함을 입력해주세요 / Please enter your name in Korean"></div>
+      <div class="fg">
+        <label>부문 / Division <span class="req">*</span></label>
+        <select id="fDivision" onchange="updTeamOpts()">
+          <option value="">부문 선택 / Select Division</option>
+          <option value="SI&I">SI&amp;I</option>
+          <option value="High-End Brands">High-End Brands</option>
+          <option value="Connections & Capabilities">Connections &amp; Capabilities</option>
+          <option value="draftLine">draftLine</option>
+          <option value="National Brands">National Brands</option>
+          <option value="New Business">New Business</option>
+          <option value="DTC">DTC</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>팀 / Team <span class="req">*</span></label>
+        <select id="fTeam" disabled style="color:#888;">
+          <option value="">부문을 먼저 선택해주세요 / Select Division first</option>
+        </select>
+      </div>
+      <div class="fg" id="fTargetWrap" style="display:none">
+        <label>응답 대상 팀원 / Target Team Member <span class="req">*</span></label>
+        <input type="text" id="fTarget" placeholder="이번 응답 대상 팀원 이름 / Member name for this response">
+      </div>
+    </div>
+
+    <div class="nav">
+      <button class="btn btn-p" onclick="startSurvey()">설문 시작하기 / Start Survey →</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══ SCREEN 1: PART 1 (Member Only) ══ -->
+<div class="scr" id="s1">
+  <div class="sh">
+    <div class="sbadge sb-p1">P1</div>
+    <div class="sh-txt">
+      <h2>업무 시간 배분 / Work Time Allocation</h2>
+      <p>지난 한 달 기준 · Based on the past month</p>
+    </div>
+  </div>
+  <div class="qhint" style="margin-bottom:16px;background:var(--blk2);color:var(--graylt);border-left:3px solid var(--gy1b);line-height:1.8;">
+    해당 섹션은 응답자의 현재 업무 시간에서 어떤 유형의 일에 얼마나 시간이 분배되고 있는지 확인하는 것을 목적으로 합니다. 업무 시간의 총량과 업무의 비중을 확인하여 구성원의 Work and Life Balance에 기여할 수 있는 기회를 탐색하기 위한 기초자료로 활용됩니다.<br>
+    <span style="font-style:italic;color:var(--gray);font-size:10.5px;">This section aims to understand how your working hours are distributed across different types of work, serving as foundational material to identify opportunities contributing to members' Work-Life Balance.</span>
+  </div>
+
+  <!-- Q1: Weekly Hours -->
+  <div class="qc">
+    <div class="qlbl">Q1</div>
+    <div class="qt">지난달(5월) 기준 1주일 평균 각 업무 유형에 실제로 몇 시간을 할애하셨나요? <span class="req">*</span></div>
+    <div class="qhint">💡 실제 투입 시간(H)을 숫자로 입력해주세요. 0이면 0을 입력하세요 / Enter actual hours spent. Enter 0 if none.</div>
+    <table class="cst">
+      <thead><tr><th>업무 유형 / Work Type</th><th>시간 (H)</th></tr></thead>
+      <tbody id="wkBody">
+        <tr><td>기타 덱 작업 (기타 프레젠테이션 자료 제작 등)</td><td><input class="wki" data-cat="기타 덱 작업" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        <tr><td>코칭 및 피플매니징 (팀원 코칭, 성과 관리 등)</td><td><input class="wki" data-cat="코칭 및 피플매니징" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        <tr><td>정기 미팅 (내부 회의, 정기 미팅, 브랜드 위클리 등)</td><td><input class="wki" data-cat="정기 미팅" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        <tr><td>에드혹 대응 (긴급 요청, 예상치 못한 업무 등)</td><td><input class="wki" data-cat="에드혹 대응" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        <tr><td>이해관계자 관리 (협력사, 타부서 커뮤니케이션 등)</td><td><input class="wki" data-cat="이해관계자 관리" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        <tr><td>외근 (현장 방문, 거래처 미팅, 출장 등)</td><td><input class="wki" data-cat="외근" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        <tr><td>구매 및 비용처리 (발주, 지출 결의, 정산 등)</td><td><input class="wki" data-cat="구매 및 비용처리" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        <tr><td>어드민·반복 (이메일, 승인, 일정 관리 등)</td><td><input class="wki" data-cat="어드민·반복" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()"></td></tr>
+        
+      </tbody>
+    </table>
+    <div style="margin-top:9px;padding:8px 12px;border-radius:7px;background:var(--ypale);font-size:12px;color:#7A5800;">
+      📊 합계: <strong id="wkTotal">0</strong>시간 / Total: <strong id="wkTotalEn">0</strong>H
+    </div>
+  </div>
+
+  <!-- Q2: Constant Sum (월간 배분) -->
+  <div class="qc">
+    <div class="qlbl">Q2</div>
+    <div class="qt">지난 1년 (신규입사자 및 부서이동 인원의 경우 최근 포지션 기준)을 기준으로 아래 업무 유형에 시간을 어느 정도 비중으로 쓰셨나요? <span class="req">*</span></div>
+    <div class="qhint">💡 합계가 정확히 100이 되어야 다음 단계로 넘어갈 수 있습니다 / Total must equal exactly 100 to proceed.</div>
+    <table class="cst">
+      <thead><tr><th>업무 유형 / Work Type</th><th>비중 (%)</th></tr></thead>
+      <tbody id="cstBody">
+        <tr><td>기타 덱 작업 (기타 프레젠테이션 자료 제작 등)</td><td><input class="csi" data-cat="기타 덱 작업" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        <tr><td>코칭 및 피플매니징 (팀원 코칭, 성과 관리 등)</td><td><input class="csi" data-cat="코칭 및 피플매니징" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        <tr><td>정기 미팅 (내부 회의, 정기 미팅, 브랜드 위클리 등)</td><td><input class="csi" data-cat="정기 미팅" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        <tr><td>에드혹 대응 (긴급 요청, 예상치 못한 업무 등)</td><td><input class="csi" data-cat="에드혹 대응" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        <tr><td>이해관계자 관리 (협력사, 타부서 커뮤니케이션 등)</td><td><input class="csi" data-cat="이해관계자 관리" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        <tr><td>외근 (현장 방문, 거래처 미팅, 출장 등)</td><td><input class="csi" data-cat="외근" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        <tr><td>구매 및 비용처리 (발주, 지출 결의, 정산 등)</td><td><input class="csi" data-cat="구매 및 비용처리" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        <tr><td>어드민·반복 (이메일, 승인, 일정 관리 등)</td><td><input class="csi" data-cat="어드민·반복" type="number" min="0" max="100" value="0" oninput="updSum()"></td></tr>
+        
+      </tbody>
+    </table>
+    <div class="sum-row" id="sumRow"><span>현재 합계 / Total</span><span class="snum" id="sumNum">0 / 100</span></div>
+  </div>
+
+  <!-- Q3 -->
+  <div class="qc">
+    <div class="qlbl">Q3</div>
+    <div class="qt">현재 가장 많은 시간을 쓰고 있는 업무 <strong>TOP 3</strong>를 순서대로 선택해주세요. <span class="req">*</span></div>
+    <div class="rank-opts" id="rCurrent"></div>
+  </div>
+
+  <!-- Q4 -->
+  <div class="qc">
+    <div class="qlbl">Q4</div>
+    <div class="qt">향후 가장 많은 시간을 <strong>투자해야 한다</strong>고 생각하는 업무 <strong>Top 3</strong>를 순서대로 선택해주세요. <span class="req">*</span></div>
+    <div class="rank-opts" id="rShould"></div>
+  </div>
+
+  <!-- Q5 (optional) -->
+  <div class="qc">
+    <div class="qlbl">Q5</div>
+    <div class="qt">Q3와 Q4의 답이 다르다면, 그 이유는 무엇이라고 생각하시나요? <span style="color:var(--gray);font-size:11px;">(선택 / Optional)</span></div>
+    <textarea id="q4" placeholder="자유롭게 작성해주세요 / Please share your thoughts..."></textarea>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="go(0)">← 이전</button>
+    <button class="btn btn-p" onclick="nextP1()">다음 →</button>
+  </div>
+</div>
+
+<!-- ══ SCREEN 2: PART 2 (Member + Manager) ══ -->
+<div class="scr" id="s2">
+
+  <!-- Target bar shown for managers -->
+  <div class="tbar" id="tbar">
+    <div class="tbar-info">
+      <span style="color:var(--gray);font-size:10.5px;">응답 대상 팀원 / Target Member</span>
+      <strong id="tbarName">—</strong>
+      <span class="en">이 팀원에 대한 응답을 작성해주세요 / Please respond about this team member</span>
+    </div>
+    <div class="tbar-count" id="tbarCount">1번째</div>
+  </div>
+
+  <div class="sh">
+    <div class="sbadge" id="p2badge">P2</div>
+    <div class="sh-txt">
+      <h2 id="p2title">현재 업무의 가치–시간투자 분류 / Value–Effort Classification</h2>
+      <p id="p2sub">업무를 가치와 노력 기준으로 분류해주세요 · Classify your work by value and effort</p>
+    </div>
+  </div>
+
+  <div style="margin:8px auto 22px auto;max-width:440px;background:var(--blk2);border:1px solid var(--blk4);border-radius:12px;padding:20px 18px 16px 18px;">
+    <div style="position:relative;">
+      <!-- 세로축(가치) 상단 라벨 -->
+      <div style="text-align:center;font-size:11px;font-weight:800;color:var(--yellow);letter-spacing:1px;margin-bottom:6px;">▲ 가치 (Value)</div>
+      <!-- 사분면 본체 -->
+      <div style="position:relative;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:0;border-radius:8px;overflow:hidden;">
+        <!-- 2Q 좌상 (고가치·저노력) -->
+        <div style="background:#1B3326;padding:16px 12px;text-align:center;border-right:1.5px solid var(--blk1);border-bottom:1.5px solid var(--blk1);">
+          <div style="font-size:15px;font-weight:800;color:#5BAD80;margin-bottom:4px;">2Q</div>
+          <div style="font-size:11px;font-weight:700;color:#eee;margin-bottom:2px;">고가치 · 저노력</div>
+          <div style="font-size:9.5px;color:#8FB9A2;line-height:1.45;">가치 높고<br>노력 적게 드는 업무</div>
+        </div>
+        <!-- 1Q 우상 (고가치·고노력) -->
+        <div style="background:#33201C;padding:16px 12px;text-align:center;border-bottom:1.5px solid var(--blk1);">
+          <div style="font-size:15px;font-weight:800;color:#E57363;margin-bottom:4px;">1Q</div>
+          <div style="font-size:11px;font-weight:700;color:#eee;margin-bottom:2px;">고가치 · 고노력</div>
+          <div style="font-size:9.5px;color:#C99B92;line-height:1.45;">가치 높고<br>노력 많이 드는 업무</div>
+        </div>
+        <!-- 3Q 좌하 (저가치·저노력) -->
+        <div style="background:#242424;padding:16px 12px;text-align:center;border-right:1.5px solid var(--blk1);">
+          <div style="font-size:15px;font-weight:800;color:#999;margin-bottom:4px;">3Q</div>
+          <div style="font-size:11px;font-weight:700;color:#ccc;margin-bottom:2px;">저가치 · 저노력</div>
+          <div style="font-size:9.5px;color:#888;line-height:1.45;">가치 낮고<br>노력 적게 드는 업무</div>
+        </div>
+        <!-- 4Q 우하 (저가치·고노력) -->
+        <div style="background:#2E2912;padding:16px 12px;text-align:center;">
+          <div style="font-size:15px;font-weight:800;color:#CBA52A;margin-bottom:4px;">4Q</div>
+          <div style="font-size:11px;font-weight:700;color:#eee;margin-bottom:2px;">저가치 · 고노력</div>
+          <div style="font-size:9.5px;color:#A8923F;line-height:1.45;">가치 낮고<br>노력 많이 드는 업무</div>
+        </div>
+        <!-- 십자 중심선 (세로) -->
+        <div style="position:absolute;left:50%;top:0;bottom:0;width:2px;background:var(--ydark);transform:translateX(-50%);opacity:.55;pointer-events:none;"></div>
+        <!-- 십자 중심선 (가로) -->
+        <div style="position:absolute;top:50%;left:0;right:0;height:2px;background:var(--ydark);transform:translateY(-50%);opacity:.55;pointer-events:none;"></div>
+      </div>
+      <!-- 가로축(노력) 우측 라벨 -->
+      <div style="text-align:right;font-size:11px;font-weight:800;color:var(--yellow);letter-spacing:1px;margin-top:6px;">노력 (Effort) ▶</div>
+    </div>
+  </div>
+
+    <div id="noteMember" style="display:inline-block;background:var(--ydark);color:var(--black);border-radius:5px;padding:6px 11px;font-size:11px;font-weight:700;margin-bottom:10px;">📌 본인에게 해당되는 업무만 선택해주세요 (모든 업무 카테고리 필수 선택 아님)</div>
+  <div class="qhint" id="hintMember" style="margin-bottom:13px;">
+    해당 섹션은 응답자께서 현재 담당하는 업무에서의 <strong>가치</strong>(조직 목표 달성에 직접 기여하는 정도) 인식과 <strong>노력</strong>(업무에 투입되는 시간 + 심리적 에너지)을 확인하는 것을 목적으로 합니다. 이는 구성원들이 가치가 높은 업무에 몰입할 수 있도록 개선 기회를 탐색하기 위한 기초자료로 활용됩니다.<br>
+    <span style="font-style:italic;color:var(--gray);font-size:10.5px;">This section aims to understand your perception of value and effort in your current work, to identify opportunities for focusing on higher-value work.</span><br><br>
+    💡 <strong>가치(Value)</strong> — 팀·조직 목표 달성에 직접 기여하는 정도<br>
+    💡 <strong>노력(Effort)</strong> — 해당 업무에 투입되는 시간 + 심리적 에너지
+  </div>
+  <div id="noteManager" style="display:none;background:var(--ydark);color:var(--black);border-radius:5px;padding:6px 11px;font-size:11px;font-weight:700;margin-bottom:10px;">📌 해당 팀원이 수행하는 업무만 선택해주세요 (모든 업무 카테고리 필수 선택 아님)</div>
+  <div class="qhint" id="hintManager" style="margin-bottom:13px;display:none;background:var(--blk2);color:var(--graylt);border-left:3px solid var(--ydark);line-height:1.8;">
+    해당 섹션은 매니저의 관점에서 팀원이 현재 담당하는 업무에서의 <strong>가치</strong>(조직 목표 달성에 직접 기여하는 정도) 인식과 <strong>노력</strong>(업무에 투입되는 시간 + 심리적 에너지)을 확인하는 것을 목적으로 합니다. 이는 구성원들이 가치가 높은 업무에 몰입할 수 있도록 개선 기회를 탐색하기 위한 기초자료로 활용됩니다.<br>
+    <span style="font-style:italic;color:var(--gray);font-size:10.5px;">This section aims to understand, from the manager's perspective, the value and effort of the selected team member's work, to identify opportunities for members to focus on higher-value work.</span><br><br>
+    💡 <strong>선택한 팀원의 업무를 기준으로 응답해주세요.</strong> 해당 팀원이 수행하는 업무 중 아래 각 사분면에 해당하는 것을 선택·기재해주세요.
+  </div>
+  <!-- Manager Q3 (TOP3 should-spend) shown only for manager -->
+  
+  <!-- Manager P2 Matrix (manager only) -->
+  <div class="qc" id="mgrMatCard" style="display:none">
+    <div class="qlbl">P2 — Manager</div>
+    <div class="qt">선택한 팀원의 업무를 아래 기준으로 분류해주세요.</div>
+    <div class="qhint" style="margin-bottom:11px;line-height:1.7;">
+      🔴 <strong>1Q 고가치·고노력</strong> — 가치 높고 노력 많이 드는 업무&nbsp;&nbsp;🟢 <strong>2Q 고가치·저노력</strong> — 가치 높고 노력 적게 드는 업무<br>
+      ⚪ <strong>3Q 저가치·저노력</strong> — 가치 낮고 노력 적게 드는 업무&nbsp;&nbsp;🟡 <strong>4Q 저가치·고노력</strong> — 가치 낮고 노력 많이 드는 업무
+    </div>
+    <table class="mgr-mat">
+      <thead>
+        <tr>
+          <th class="ch">업무 유형 / Work Type</th>
+          <th>🔴 1Q<br><span style="font-weight:300;font-size:8px;">고가치·고노력</span></th>
+          <th>🟢 2Q<br><span style="font-weight:300;font-size:8px;">고가치·저노력</span></th>
+          <th>⚪ 3Q<br><span style="font-weight:300;font-size:8px;">저가치·저노력</span></th>
+          <th>🟡 4Q<br><span style="font-weight:300;font-size:8px;">저가치·고노력</span></th>
+        </tr>
+      </thead>
+      <tbody id="mgrMatTbody">
+      </tbody>
+    </table>
+    <div class="subq" style="margin-top:8px;">
+      <div class="subq-lbl">이 팀원의 업무 중 지금 당장 없애거나 바꿀 수 있다면 무엇인가요? <span style="color:var(--gray);font-size:10px;">(선택 / Optional)</span></div>
+      <textarea id="mgrOpenQ" class="sh" placeholder="자유롭게 작성해주세요 / Feel free to write..."></textarea>
+    </div>
+  </div>
+
+<div class="qc" id="mgrQ3" style="display:none">
+    <div class="qlbl">Q3 — Manager</div>
+    <div class="qt">선택한 팀원이 가장 많은 시간을 써야 한다고 생각하는 업무 TOP 3를 순서대로 선택해주세요.</div>
+    <div class="rank-opts" id="rMgrShould"></div>
+  </div>
+
+  <!-- Q5: High Value / High Effort -->
+  <div class="qc memberP2">
+    <div class="qlbl">Q5</div>
+    <div class="qt" id="q5tm">🔴 <strong>가치 높고, 노력 많이 드는</strong> 업무 / High Value, High Effort <span class="req">*</span></div>
+    <div class="qt" id="q5tg" style="display:none">🔴 선택한 팀원의 업무 중 <strong>가치 높고, 노력 많이 드는</strong> 것은 무엇인가요? / High Value, High Effort <span class="req">*</span></div>
+    <div class="qhint">해당 업무 유형을 모두 선택해주세요</div>
+    <div class="chips" id="ch5"></div>
+    
+    <div class="subq">
+      <div class="subq-lbl" id="q5blm">→ 이 업무를 더 잘 수행하기 위해 필요한 것은? <span class="req">*</span></div>
+      <div class="subq-lbl" id="q5blg" style="display:none">→ 이 팀원이 이 업무를 더 잘 수행하기 위해 필요한 것은? <span class="req">*</span></div>
+      <textarea id="q5b" class="sh" placeholder="필요한 지원, 역량, 환경 등 / Support, skills, environment needed..."></textarea>
+    </div>
+  </div>
+
+  <!-- Q6: High Value / Low Effort -->
+  <div class="qc memberP2">
+    <div class="qlbl">Q6</div>
+    <div class="qt" id="q6tm">🟢 <strong>가치 높고, 노력 적게 드는</strong> 업무 / High Value, Low Effort <span class="req">*</span></div>
+    <div class="qt" id="q6tg" style="display:none">🟢 선택한 팀원의 업무 중 <strong>가치 높고, 노력 적게 드는</strong> 것은 무엇인가요? / High Value, Low Effort <span class="req">*</span></div>
+    <div class="qhint">해당 업무 유형을 모두 선택해주세요</div>
+    <div class="chips" id="ch6"></div>
+    
+    <div class="subq">
+      <div class="subq-lbl" id="q6blm">→ 이 업무의 비중을 늘리는 데 방해가 되는 요소는? <span class="req">*</span></div>
+      <div class="subq-lbl" id="q6blg" style="display:none">→ 이 팀원이 이 업무 비중을 늘리는 데 방해가 되는 요소는? <span class="req">*</span></div>
+      <textarea id="q6b" class="sh" placeholder="방해 요소 / Obstacles..."></textarea>
+    </div>
+  </div>
+
+  <!-- Q7: Low Value / High Effort -->
+  <div class="qc memberP2">
+    <div class="qlbl">Q7</div>
+    <div class="qt" id="q7tm">🟡 <strong>가치 낮고, 노력 많이 드는</strong> 업무 / Low Value, High Effort <span class="req">*</span></div>
+    <div class="qt" id="q7tg" style="display:none">🟡 선택한 팀원의 업무 중 <strong>가치 낮고, 노력 많이 드는</strong> 것은 무엇인가요? / Low Value, High Effort <span class="req">*</span></div>
+    <div class="qhint">해당 업무 유형을 모두 선택해주세요</div>
+    <div class="chips" id="ch7"></div>
+    
+    <div class="subq">
+      <div class="subq-lbl" id="q7blm">→ 이 업무가 왜 계속 필요한지, 또는 어떻게 개선될 수 있을지? <span class="req">*</span></div>
+      <div class="subq-lbl" id="q7blg" style="display:none">→ 이 팀원의 해당 업무가 왜 계속 필요한지, 또는 어떻게 개선될 수 있을지? <span class="req">*</span></div>
+      <textarea id="q7b" class="sh" placeholder="의견 / Your thoughts..."></textarea>
+    </div>
+  </div>
+
+  <!-- Q8: Low Value / Low Effort -->
+  <div class="qc memberP2">
+    <div class="qlbl">Q8</div>
+    <div class="qt" id="q8tm">⚪ <strong>가치 낮고, 노력 적게 드는</strong> 업무 / Low Value, Low Effort <span class="req">*</span></div>
+    <div class="qt" id="q8tg" style="display:none">⚪ 선택한 팀원의 업무 중 <strong>가치 낮고, 노력 적게 드는</strong> 것은 무엇인가요? / Low Value, Low Effort <span class="req">*</span></div>
+    <div class="qhint">해당 업무 유형을 모두 선택해주세요</div>
+    <div class="chips" id="ch8"></div>
+    
+    <div class="subq">
+      <div class="subq-lbl" id="q8blm">→ 이 업무를 제거하거나 위임할 수 있다면 어떻게 하시겠어요? <span class="req">*</span></div>
+      <div class="subq-lbl" id="q8blg" style="display:none">→ 이 팀원의 해당 업무를 제거하거나 위임한다면 어떻게 하시겠어요? <span class="req">*</span></div>
+      <textarea id="q8b" class="sh" placeholder="의견 / Your thoughts..."></textarea>
+    </div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="backP2()">← 이전</button>
+    <button class="btn btn-p" onclick="nextP2()" id="p2NextBtn">다음 →</button>
+  </div>
+</div>
+
+<!-- ══ SCREEN 3: PART 3 (Member Only) ══ -->
+<div class="scr" id="s3">
+  <div class="sh">
+    <div class="sbadge sb-p3">P3</div>
+    <div class="sh-txt">
+      <h2>조직구조 및 문화 일치도 / Org Structure &amp; Culture Alignment</h2>
+      <p>1점(전혀 아님) ~ 5점(매우 그러함) · 1 = Not at all → 5 = Very much so</p>
+    </div>
+  </div>
+<div class="qhint" style="margin-bottom:15px;background:var(--blk2);color:var(--graylt);border-left:3px solid var(--ydark);line-height:1.8;">
+    개인, 일, 조직구조, 조직문화 간의 관계에서 업무 효율을 저해하는 요소와 개선이 필요한 영역을 파악하기 위한 섹션입니다. 앞서 답하신 업무들을 떠올리며 응답해주세요.<br>
+    <span style="font-style:italic;color:var(--gray);font-size:10.5px;">This section identifies bottlenecks and areas for improvement in how people, tasks, structure, and culture interact. Please reflect on the work you described earlier.</span>
+  </div>
+
+  <!-- Pair 1: Task ↔ People -->
+  <div class="ph"><span class="pic">⚙️</span><div><div class="ptit">Task ↔ People</div><div class="psub">개인 역량과 업무 요건의 일치도 / Alignment between individual capability and task requirements</div></div></div>
+
+  <div class="qc">
+    <div class="qlbl">Q9</div>
+    <div class="qt">현재 맡은 업무를 수행하는 데 필요한 역량을 충분히 갖추고 있다고 생각하시나요? <span class="req">*</span></div>
+    <div class="lkrt-lbl"><span>전혀 그렇지 않다 / Not at all</span><span>매우 그렇다 / Very much</span></div>
+    <div class="lkrt" id="lq9"><button class="lb" onclick="setL('q9',1,this)">1</button><button class="lb" onclick="setL('q9',2,this)">2</button><button class="lb" onclick="setL('q9',3,this)">3</button><button class="lb" onclick="setL('q9',4,this)">4</button><button class="lb" onclick="setL('q9',5,this)">5</button></div>
+    <div class="subq"><div class="subq-lbl">→ 향후 업무를 더 잘 수행하기에 지원이 필요한 역량은 무엇인가요? <span class="req">*</span></div>
+    <div style="font-size:11px;color:var(--gray);margin:4px 0 7px 0;line-height:1.5;font-weight:400;">예: 피플매니징, 리더십, 데이터 분석, AI 툴 활용 등</div>
+    <textarea id="q9r" class="sh" placeholder="자유롭게 입력해주세요"></textarea></div>
+  </div>
+
+  <div class="qc">
+    <div class="qlbl">Q10</div>
+    <div class="qt">본인의 역량과 경험이 현재 업무에서 충분히 발휘되고 있다고 느끼시나요? <span class="req">*</span></div>
+    <div class="lkrt-lbl"><span>전혀 그렇지 않다</span><span>매우 그렇다</span></div>
+    <div class="lkrt" id="lq10"><button class="lb" onclick="setL('q10',1,this)">1</button><button class="lb" onclick="setL('q10',2,this)">2</button><button class="lb" onclick="setL('q10',3,this)">3</button><button class="lb" onclick="setL('q10',4,this)">4</button><button class="lb" onclick="setL('q10',5,this)">5</button></div>
+    <div class="subq"><div class="subq-lbl">→ 역량 개발과 능력 발휘를 위해 개선되어야 하는 업무 요소는 무엇인가요? <span class="req">*</span></div>
+    <div style="font-size:11px;color:var(--gray);margin:4px 0 7px 0;line-height:1.5;font-weight:400;">예: 잦은 보고 및 자료 준비, 에드혹 대응, 외근, 각종 행정업무, 이해관계자 관리 등</div>
+    <textarea id="q10r" class="sh" placeholder="자유롭게 입력해주세요"></textarea></div>
+  </div>
+
+  
+  <div class="ph"><span class="pic">🏗️</span><div>
+    <div class="ptit">Task ↔ Formal Organization</div>
+    <div class="psub">공식 구조·프로세스와 업무 수행의 일치도 / Alignment between formal structure/processes and task performance</div>
+  </div></div>
+
+  <div class="qc">
+    <div class="qlbl">Q11</div>
+    <div class="qt">조직의 구조, 보고 체계, 프로세스 등이 업무를 효율적으로 수행하는데 도움이 된다고 생각하시나요? <span class="req">*</span></div>
+    <div class="lkrt-lbl"><span>전혀 그렇지 않다</span><span>매우 그렇다</span></div>
+    <div class="lkrt" id="lq12"><button class="lb" onclick="setL('q12',1,this)">1</button><button class="lb" onclick="setL('q12',2,this)">2</button><button class="lb" onclick="setL('q12',3,this)">3</button><button class="lb" onclick="setL('q12',4,this)">4</button><button class="lb" onclick="setL('q12',5,this)">5</button></div>
+    <div class="subq"><div class="subq-lbl">→ 개선이 필요한 공식 구조 및 필요하거나 불필요한 프로세스는 무엇인가요? <span class="req">*</span></div>
+    <div style="font-size:11px;color:var(--gray);margin:4px 0 7px 0;line-height:1.5;font-weight:400;">예: 조직 구조, 보고 프로세스, 결재 및 승인 프로세스, 온보딩 및 교육 프로세스 등</div>
+    <textarea id="q12r" class="sh" placeholder="자유롭게 입력해주세요"></textarea></div>
+  </div>
+
+  
+  <div class="ph"><span class="pic">🌱</span><div>
+    <div class="ptit">Task ↔ Informal Organization</div>
+    <div class="psub">팀 관행·문화와 업무 수행의 일치도 / Alignment between team norms/culture and task performance</div>
+  </div></div>
+
+  <div class="qc">
+    <div class="qlbl">Q12</div>
+    <div class="qt">마케팅 조직 및 각 팀의 문화나 관행이 업무의 본질적 수행에 도움이 된다고 생각하시나요? <span class="req">*</span></div>
+    <div class="lkrt-lbl"><span>전혀 그렇지 않다</span><span>매우 그렇다</span></div>
+    <div class="lkrt" id="lq14"><button class="lb" onclick="setL('q14',1,this)">1</button><button class="lb" onclick="setL('q14',2,this)">2</button><button class="lb" onclick="setL('q14',3,this)">3</button><button class="lb" onclick="setL('q14',4,this)">4</button><button class="lb" onclick="setL('q14',5,this)">5</button></div>
+    <div class="subq"><div class="subq-lbl">→ 원활한 업무 수행을 위해 개선되어야 하는 문화 또는 관행은 무엇인가요? <span class="req">*</span></div>
+    <div style="font-size:11px;color:var(--gray);margin:4px 0 7px 0;line-height:1.5;font-weight:400;">예: 멘토링 및 코칭 기회, 팀빌딩 활동, 협업 방식 등</div>
+    <textarea id="q14r" class="sh" placeholder="자유롭게 입력해주세요"></textarea></div>
+  </div>
+
+  
+  <div class="ph"><span class="pic">🔗</span><div>
+    <div class="ptit">People ↔ Formal Organization</div>
+    <div class="psub">공식 구조·프로세스와 개인 역량·동기의 일치도 / Alignment between formal structure/processes and individual capabilities/motivation</div>
+  </div></div>
+
+  <div class="qc">
+    <div class="qlbl">Q13</div>
+    <div class="qt">현재 조직 구조와 공식 프로세스가 본인의 역량을 발휘할 수 있도록 지원하고 동기를 부여한다고 생각하시나요? <span class="req">*</span></div>
+    <div class="lkrt-lbl"><span>전혀 그렇지 않다</span><span>매우 그렇다</span></div>
+    <div class="lkrt" id="lq16"><button class="lb" onclick="setL('q16',1,this)">1</button><button class="lb" onclick="setL('q16',2,this)">2</button><button class="lb" onclick="setL('q16',3,this)">3</button><button class="lb" onclick="setL('q16',4,this)">4</button><button class="lb" onclick="setL('q16',5,this)">5</button></div>
+    <div class="subq"><div class="subq-lbl">→ 역량 발휘와 동기 부여를 위해 개선되어야 하는 공식 구조 및 프로세스는 무엇인가요? <span class="req">*</span></div>
+    <div style="font-size:11px;color:var(--gray);margin:4px 0 7px 0;line-height:1.5;font-weight:400;">예: 구조적 문제로 인한 한정적 업무 및 권한, 특정 프로세스에 대한 피로감</div>
+    <textarea id="q16r" class="sh" placeholder="자유롭게 입력해주세요"></textarea></div>
+  </div>
+
+  
+  <div class="ph"><span class="pic">💫</span><div>
+    <div class="ptit">People ↔ Informal Organization</div>
+    <div class="psub">팀 관행·문화와 개인 동기·에너지의 일치도 / Alignment between team norms/culture and individual motivation/energy</div>
+  </div></div>
+
+  <div class="qc">
+    <div class="qlbl">Q14</div>
+    <div class="qt">마케팅 조직 및 각 팀의 문화나 관행이 본인의 동기 부여와 에너지 유지에 긍정적인 영향을 준다고 생각하시나요? <span class="req">*</span></div>
+    <div class="lkrt-lbl"><span>전혀 그렇지 않다</span><span>매우 그렇다</span></div>
+    <div class="lkrt" id="lq18"><button class="lb" onclick="setL('q18',1,this)">1</button><button class="lb" onclick="setL('q18',2,this)">2</button><button class="lb" onclick="setL('q18',3,this)">3</button><button class="lb" onclick="setL('q18',4,this)">4</button><button class="lb" onclick="setL('q18',5,this)">5</button></div>
+    <div class="subq"><div class="subq-lbl">→ 마케팅 조직 및 각 팀의 문화나 관행이 본인의 동기를 낮추거나 에너지를 소모시키는 것이 있나요? <span class="req">*</span></div>
+    <div style="font-size:11px;color:var(--gray);margin:4px 0 7px 0;line-height:1.5;font-weight:400;">예: 빠른 속도에 따른 에너지 소모, 의사결정의 번복에 따른 동기 저하</div>
+    <textarea id="q18r" class="sh" placeholder="자유롭게 입력해주세요"></textarea></div>
+  </div>
+
+  
+  <div class="ph"><span class="pic">⚖️</span><div>
+    <div class="ptit">Formal ↔ Informal Organization</div>
+    <div class="psub">공식 프로세스와 실제 일하는 방식의 일치도 / Alignment between formal processes and actual working practices</div>
+  </div></div>
+
+  <div class="qc">
+    <div class="qlbl">Q15</div>
+    <div class="qt">공식적으로 정해진 프로세스와 실제로 팀이 일하는 방식이 일치한다고 생각하시나요? <span class="req">*</span></div>
+    <div class="lkrt-lbl"><span>전혀 그렇지 않다</span><span>매우 그렇다</span></div>
+    <div class="lkrt" id="lq20"><button class="lb" onclick="setL('q20',1,this)">1</button><button class="lb" onclick="setL('q20',2,this)">2</button><button class="lb" onclick="setL('q20',3,this)">3</button><button class="lb" onclick="setL('q20',4,this)">4</button><button class="lb" onclick="setL('q20',5,this)">5</button></div>
+    <div class="subq"><div class="subq-lbl">→ 어떤 경우에 공식 프로세스를 따르지 않고 비공식적인 방법으로 일을 처리하나요? <span class="req">*</span></div>
+    <div style="font-size:11px;color:var(--gray);margin:4px 0 7px 0;line-height:1.5;font-weight:400;">예: 외부 환경 변화, 상위자 의견 변경, 급박한 의사결정 압박 등</div>
+    <textarea id="q20r" class="sh" placeholder="자유롭게 입력해주세요"></textarea></div>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="go(2)">← 이전</button>
+    <button class="btn btn-p" onclick="nextP3()">다음 →</button>
+  </div>
+</div>
+
+<!-- ══ SCREEN 4: PART 4 (Member Only) ══ -->
+<div class="scr" id="s4">
+  <div class="sh">
+    <div class="sbadge sb-p4">P4</div>
+    <div class="sh-txt">
+      <h2>Pain Point &amp; 개선 의견 / Improvement Ideas</h2>
+      <p>솔직한 의견을 자유롭게 작성해주세요 · Please share your honest thoughts freely</p>
+    </div>
+  </div>
+
+    <div class="qhint" style="margin-bottom:15px;background:var(--gy4);color:var(--graylt);border-left:3px solid var(--gray);line-height:1.8;">
+    앞선 섹션에서 담기지 않은 어떤 내용이든 자유롭게 작성해 주세요 — 어려움, 제안, 또는 리더십이 알아야 한다고 생각하는 것들을 공유해 주세요.<br>
+    <span style="font-style:italic;color:var(--gray);font-size:10.5px;">Please share anything not captured in the previous sections — challenges, suggestions, or things you think leadership should know.</span>
+  </div>
+  <div class="qc">
+    <div class="qlbl">Q16</div>
+    <div class="qt">현재 업무 중 AI 활용 또는 자동화가 가능할 시 업무효율이 증가될 것으로 예상되는 업무가 있다면 무엇인가요?</div>
+    <div style="font-size:11px;color:var(--gray);margin:4px 0 7px 0;line-height:1.5;font-weight:400;">예: 주간 보고서 초안 작성, 데이터 정리 등...</div>
+    
+    <textarea id="q22" placeholder="자유롭게 입력해주세요"></textarea>
+  </div>
+
+  <div class="qc">
+    <div class="qlbl">Q17</div>
+    <div class="qt">지금 당장 없애거나 줄일 수 있다면 가장 먼저 바꾸고 싶은 업무 관행이나 프로세스는?</div>
+    <div style="font-size:11px;color:var(--gray);margin:4px 0 7px 0;line-height:1.5;font-weight:400;">예: 매주 반복되는 보고, 모든 내용을 덱으로 만드는 것 등...</div>
+    
+    <textarea id="q23" placeholder="자유롭게 입력해주세요"></textarea>
+  </div>
+
+  <div class="qc">
+    <div class="qlbl">Q18</div>
+    <div class="qt">본인의 업무 몰입도에 가장 큰 영향을 미치는 요소는 무엇인가요? (긍정·부정 모두 가능)</div>
+    <div style="font-size:11px;color:var(--gray);margin:4px 0 7px 0;line-height:1.5;font-weight:400;">예: 몰입도를 높이는 요소, 낮추는 요소 모두 자유롭게</div>
+    
+    <textarea id="q24" placeholder="자유롭게 입력해주세요"></textarea>
+  </div>
+
+  <div class="qc">
+    <div class="qlbl">Q19</div>
+    <div class="qt">OB 마케팅 부문이 더 효과적으로 일하기 위해 가장 필요한 변화가 무엇이라고 생각하시나요?</div>
+    <div style="font-size:11px;color:var(--gray);margin:4px 0 7px 0;line-height:1.5;font-weight:400;">예: 구조적 변화, 문화적 변화, 툴/프로세스 변화 등</div>
+    
+    <textarea id="q25" placeholder="자유롭게 입력해주세요"></textarea>
+  </div>
+
+  <div class="nav">
+    <button class="btn btn-s" onclick="go(3)">← 이전</button>
+    <button class="btn btn-sub" onclick="submitMember()">설문 제출하기</button>
+  </div>
+</div>
+
+<!-- ══ SCREEN 5: COMPLETE ══ -->
+<div class="scr" id="s5">
+  <div class="done-card">
+    <div class="ico">✅</div>
+    <h2>설문 <span>완료</span> / COMPLETE</h2>
+    <div class="divline"></div>
+    <p>
+      소중한 응답 감사합니다.<br><br>
+      수집된 데이터는 OB 마케팅 부문의 업무 구조 개선을 위해서만 활용됩니다.<br><br>
+      응답해주신 내용을 기반으로 더 나은 근무 환경과 Work-Life Balance를 만들어 갈 수 있는 개선안을 개발하여 마케팅 팀 전체에 공유드리도록 하겠습니다.
+    </p>
+    <div class="divline"></div>
+    <!-- Manager: next member button -->
+    <div id="mgrNextBlock" style="display:none;margin-top:18px;">
+      <p style="margin-bottom:12px;color:var(--black);font-weight:700;font-size:13.5px;">
+        다른 팀원에 대한 응답을 이어서 작성하시려면 아래 버튼을 눌러주세요.<br>
+        
+      </p>
+      <button class="btn btn-nxt" onclick="continueNextMember()">+ 다음 팀원 응답 작성 / Next Member →</button>
+    </div>
+    <div id="sendStatus" style="margin:14px auto 0;max-width:380px;padding:10px 14px;border-radius:7px;font-size:12px;display:none;"></div>
+    <p style="font-size:10.5px;color:var(--gray);margin-top:16px;"> | OB Marketing Division | CONFIDENTIAL</p>
+  </div>
+</div>
+
+</div><!-- /wrap -->
+
+<!-- ADMIN -->
+<button class="adm-btn" onclick="togAdmin()" title="관리자">📊</button>
+<div class="adm-panel" id="admPanel">
+  <h3>📊 본인 제출 응답 현황</h3>
+  <div class="astat"><span>총 응답</span><strong id="aTotal">0</strong></div>
+  <div class="astat"><span>구성원</span><strong id="aMember">0</strong></div>
+  <div class="astat"><span>매니저</span><strong id="aManager">0</strong></div>
+  <div style="margin-top:11px;">
+    <button class="btn btn-sub" style="width:100%;font-size:11.5px;padding:9px;" onclick="dlExcel()">📁 본인 응답 엑셀 다운로드</button>
+  </div>
+</div>
+
+<script>
+// ── CONSTANTS ────────────────────────────────────────────────────────────────
+// 보고 / 덱 작업 separated (항목 8)
+// ── DIVISION → TEAM MAPPING ──────────────────────────────────────────────────
+const DIVISION_TEAMS = {
+  'SI&I':                    ['Insight','Innovation','Strategy'],
+  'High-End Brands':         ['S&E','Stella Artois'],
+  'Connections & Capabilities':['Media','Partnership','Social','Intelligence'],
+  'draftLine':               ['BXD','Content Design','Production','Creative'],
+  'National Brands':         ['Cass Fresh','Core & Value','NB Strategy & Portfolio',
+                               'National Brand Creative','Cass H&W'],
+  'New Business':            ['New Business'],
+  'DTC':                     ['DTC'],
+};
+
+
+function updateP1Tables() {
+  var team = document.getElementById('fTeam') ? document.getElementById('fTeam').value : '';
+  var teamCats = (team && TEAM_CATS[team]) ? TEAM_CATS[team] : [];
+  var exclude = (team && TEAM_COMMON_EXCLUDE[team]) ? TEAM_COMMON_EXCLUDE[team] : [];
+
+  // Remove existing team rows from P1 tables
+  document.querySelectorAll('.team-cat-row').forEach(function(r){ r.remove(); });
+
+  // Show/hide static common rows based on TEAM_COMMON_EXCLUDE (일관성 유지)
+  ['wkBody','cstBody'].forEach(function(tbodyId) {
+    var tbody = document.getElementById(tbodyId);
+    if (!tbody) return;
+    tbody.querySelectorAll('input[data-cat]').forEach(function(inp) {
+      var row = inp.closest('tr');
+      if (!row || row.classList.contains('team-cat-row')) return;
+      if (exclude.indexOf(inp.dataset.cat) !== -1) {
+        row.style.display = 'none';
+        inp.value = 0;  // 숨길 때 값 초기화
+      } else {
+        row.style.display = '';
+      }
+    });
+  });
+
+  // Rebuild manager matrix (full rebuild with correct ordering)
+  buildMgrMatrix();
+
+  if (!teamCats.length) {
+    if (typeof updWkTotal === 'function') updWkTotal();
+    if (typeof updSum === 'function') updSum();
+    return;
+  }
+
+  // P1: prepend team rows at TOP of wkBody and cstBody
+  ['wkBody','cstBody'].forEach(function(tbodyId) {
+    var isWk = tbodyId === 'wkBody';
+    var tbody = document.getElementById(tbodyId);
+    if (!tbody) return;
+    var firstRow = tbody.querySelector('tr');
+    var frag = document.createDocumentFragment();
+    teamCats.forEach(function(cat) {
+      var name = cat.name || cat;
+      var tip  = cat.tip  || '';
+      var tr = document.createElement('tr');
+      tr.className = 'team-cat-row';
+      var tdLabel = document.createElement('td');
+      tdLabel.innerHTML = name + (tip ? '<span class="cat-tip">' + tip + '</span>' : '');
+      var tdInput = document.createElement('td');
+      if (isWk) {
+        tdInput.innerHTML = '<input class="wki" data-cat="' + name + '" type="number" min="0" step="0.5" value="0" oninput="updWkTotal()">';
+      } else {
+        tdInput.innerHTML = '<input class="csi" data-cat="' + name + '" type="number" min="0" max="100" value="0" oninput="updSum()">';
+      }
+      tr.appendChild(tdLabel);
+      tr.appendChild(tdInput);
+      frag.appendChild(tr);
+    });
+    if (firstRow) { tbody.insertBefore(frag, firstRow); }
+    else          { tbody.appendChild(frag); }
+  });
+
+  if (typeof updWkTotal === 'function') updWkTotal();
+  if (typeof updSum === 'function') updSum();
+}
+
+function buildMgrMatrix() {
+  var tbody = document.getElementById('mgrMatTbody');
+  if (!tbody) return;
+  tbody.innerHTML = '';
+  var allCats = getActiveCats();
+  var cols = [
+    {cls:'r1',val:'1'},{cls:'r2',val:'2'},
+    {cls:'r3',val:'3'},{cls:'r4',val:'4'}
+  ];
+  allCats.forEach(function(cat, i) {
+    var name = cat.name || cat;
+    var tip  = (cat.tip && cat.tip !== '') ? cat.tip : '';
+    var tr = document.createElement('tr');
+    if (tip) tr.className = 'team-cat-row';
+    var tdLabel = document.createElement('td');
+    tdLabel.className = 'cn';
+    tdLabel.innerHTML = name + (tip ? '<span class="mgr-cat-desc">' + tip + '</span>' : '');
+    tr.appendChild(tdLabel);
+    cols.forEach(function(col) {
+      var td = document.createElement('td');
+      td.innerHTML = '<label><input type="radio" name="mq' + i + '" value="' + col.val + '" onclick="toggleRadio(this)"><span class="qbx ' + col.cls + '">' + col.val + 'Q</span></label>';
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+function toggleRadio(radio) {
+  // 같은 라디오를 다시 클릭하면 선택 해제 (토글)
+  if (radio.dataset.wasChecked === 'true') {
+    radio.checked = false;
+    radio.dataset.wasChecked = 'false';
+  } else {
+    // 같은 그룹의 다른 라디오들 wasChecked 초기화
+    var group = document.getElementsByName(radio.name);
+    for (var j = 0; j < group.length; j++) {
+      group[j].dataset.wasChecked = 'false';
+    }
+    radio.dataset.wasChecked = 'true';
+  }
+}
+
+
+function updTeamOpts() {
+  const div  = document.getElementById('fDivision').value;
+  const sel  = document.getElementById('fTeam');
+  sel.innerHTML = '';
+  if (!div) {
+    sel.disabled = true;
+    sel.innerHTML = '<option value="">부문을 먼저 선택해주세요 / Select Division first</option>';
+    return;
+  }
+  sel.disabled = false;
+  const placeholder = document.createElement('option');
+  placeholder.value = '';
+  placeholder.textContent = '팀 선택 / Select Team';
+  sel.appendChild(placeholder);
+  (DIVISION_TEAMS[div] || []).forEach(team => {
+    const opt = document.createElement('option');
+    opt.value = team;
+    opt.textContent = team;
+    sel.appendChild(opt);
+  });
+  // Rebuild chips/rank/tables when team changes
+  sel.onchange = function() {
+    updateP1Tables();
+    ['ch5','ch6','ch7','ch8'].forEach(function(id){ buildChips(id); });
+    buildRank('rCurrent','cur');
+    buildRank('rShould','shd');
+    if (document.getElementById('rMgrShould')) buildRank('rMgrShould','mgr');
+  };
+}
+
+
+
+// ── TEAM-SPECIFIC CATEGORIES (팀별 → 공통 순서) ─────────────────────────────
+const TEAM_COMMON_EXCLUDE = {
+  'DTC':                   ['구매 및 비용처리'],
+  'Creative':              ['이해관계자 관리'],
+  'Innovation':            ['이해관계자 관리'],
+  'Stella Artois':         ['이해관계자 관리'],
+  'S&E':['이해관계자 관리'],
+  'Cass Fresh':            ['이해관계자 관리'],
+  'Cass H&W':              ['이해관계자 관리'],
+  'Core & Value':          ['이해관계자 관리'],
+  'National Brand Creative':['이해관계자 관리'],
+  'Partnership':           ['이해관계자 관리'],
+};
+
+const TEAM_CATS = {
+
+'DTC': [
+  {name:'마케팅 전략·기획',         tip:'브랜드 캠페인 기획, SEO/SEM 전략, 풀퍼널 전략 수립 등'},
+  {name:'콘텐츠 기획·제작',          tip:'콘텐츠 기획·아이디에이션, 디자인 가이드, 외부 에이전시 에셋 제작 등'},
+  {name:'커머셜 전략·기획',          tip:'어시먼트·채널 전략 수립, 트레이드 마케팅 기획 등'},
+  {name:'마케팅 성과 분석',          tip:'풀퍼널 데이터 분석, SEO/SEM 성과 분석 등'},
+  {name:'채널·이커머스 분석',        tip:'이커머스 채널(NAB) 데이터 분석, 채널 손익(P&L) 관리 등'},
+  {name:'플랫폼·라이브 운영',        tip:'자사 플랫폼(bluepass) 운영, CS 처리, 라이브커머스 실행 관리 등'},
+  {name:'커머셜·주문 운영',          tip:'KA 관리, 주문 처리, AR 정산(인보이스 포함), 발주·비용 정산 등'},
+  {name:'물류·SCM 관리',             tip:'재고 관리, 공급망(SCM) 관리 등'},
+  {name:'정기 보고 준비 및 자료 제작',tip:'주간·월간·분기 보고서 작성 및 제출, 보고서 작성(덱작업 등)'},
+],
+
+'New Business': [
+  {name:'카테고리 분석·전략',        tip:'카테고리 데이터 분석, 성과 리포팅, 시장 파괴 전략 수립 등'},
+  {name:'제품 전략·기획',            tip:'제품 포지셔닝, 전략 수립, 컨셉 기획 등'},
+  {name:'제품 개발·이노베이션',      tip:'제품 디자인, 공급 관리, 가격 책정 및 손익(P&L), 유효성 검증 등'},
+  {name:'브랜드 전략·연간기획',      tip:'브랜드 전략 수립, 연간 계획 작성, 브리프 작성 등'},
+  {name:'브랜드 개발·런칭',          tip:'신규 브랜드 개발 및 런칭 실행 등'},
+  {name:'캠페인 크리에이티브',       tip:'캠페인 기획, 크리에이티브 브리핑, 에셋 관리 등'},
+  {name:'캠페인 운영',               tip:'이벤트 운영, 캠페인 실행 관리 등'},
+  {name:'정기 보고 준비 및 자료 제작',tip:'브랜드 리뷰, 성과 트래킹, 월간·분기 보고서 작성(덱작업 등)'},
+],
+
+'BXD': [
+  {name:'브랜드 커뮤니케이션 전략',  tip:'브랜드 커뮤니케이션 소재 감사, 디자인 솔루션·가이드라인 수립 등'},
+  {name:'디자인 방향·컨설팅',        tip:'디자인 방향성 조언, 컨셉 개발, 크리에이티브 아웃풋·프로세스 가이드 등'},
+  {name:'브랜드 비주얼 아이덴티티',  tip:'브랜드 Look & Feel 구축, 디자인 에셋·가이드라인 제작 및 관리 등'},
+  {name:'패키지 디자인',             tip:'1차·2차 패키지, 프로모션·한정판 패키지 디자인 등'},
+  {name:'제품 KV·POCM',              tip:'제품 Key Visual, IH/OOH 트레이드 POCM 소재 제작 등'},
+  {name:'트레이드 가이드·툴킷',      tip:'IH/OOH POCM 디자인 및 실행 가이드라인 제작 등'},
+  {name:'공간·팝업 디자인',          tip:'플래그십 스토어·팝업·OOH 공간 디자인 에셋 및 툴킷 제작 등'},
+  {name:'제품 디자인',               tip:'제품 디자인 기획 및 생산 관리 등'},
+],
+
+'Content Design': [
+  {name:'브랜드·캠페인 콘텐츠 기획', tip:'브랜드 캠페인, 상시 콘텐츠, 비캠페인 콘텐츠 기획 등'},
+  {name:'콘텐츠 디자인·제작',        tip:'콘텐츠 디자인, 포토슈팅, 리터칭, 합성 등'},
+  {name:'캠페인 미디어 에셋 제작',   tip:'캠페인 OOH·디지털 영상·이미지 에셋 제작 등'},
+  {name:'DTC 패키지 기획',           tip:'DTC 부가가치 패키지 기획 (예: LCK, T1 협업 등)'},
+  {name:'DTC 콘텐츠 제작',           tip:'DTC PDP·이벤트 콘텐츠 디자인, 포토슈팅, 합성 등'},
+  {name:'DTC 디자인 가이드·템플릿',  tip:'DTC 전체 콘텐츠 가이드라인 수립, 템플릿 디자인 등'},
+  {name:'브랜드 에셋·디자인 지원',   tip:'브랜드월, 로고, 가이드, 웹 프로덕트 디자인·감수 등'},
+  {name:'AI 이미지 제작',            tip:'AI 생성 이미징 툴을 활용한 브랜드 이미지 제작 등'},
+],
+
+'Production': [
+  {name:'영상 기획·제작 총괄',       tip:'영상 연출, 플랫폼별 콘텐츠 기획, 촬영 일정·장소 관리, 제작 소싱 등'},
+  {name:'인하우스 촬영',             tip:'소셜 콘텐츠 인하우스 촬영, 푸드·소품 스타일링, 조명 운영 등'},
+  {name:'글로벌 영상 현지화',        tip:'글로벌 영상 로컬라이징, 자막·더빙·현지화 편집 등'},
+  {name:'사내 행사·교육 영상 제작',  tip:'사내 행사, 교육, 대회 영상 기획 및 제작 등'},
+  {name:'소셜 영상 제작',            tip:'소셜 미디어 콘텐츠 영상 기획 및 제작 등'},
+  {name:'후반 작업',                 tip:'색보정(DI), 편집, 모션그래픽, 합성, 캐릭터 애니메이션 등'},
+  {name:'AI 영상 제작',              tip:'AI 기반 영상 제작·편집, 프롬프트 설계, AI 에셋 통합 등'},
+  {name:'사운드 디자인',             tip:'보이스오버 녹음, 오디오 믹싱·마스터링, 사운드 디렉션 등'},
+],
+
+'Creative': [
+  {name:'크리에이티브 전략·캠페인 기획',tip:'핵심 크리에이티브 컨셉 개발, 브랜드 캠페인 실행 전략 수립 등'},
+  {name:'글로벌 브랜드 현지화',      tip:'글로벌 브랜드 에셋을 로컬 시장 인사이트·문화에 맞게 적용 등'},
+  {name:'비주얼 디렉션·카피라이팅',  tip:'비주얼 아이덴티티(톤·컬러) 수립, 핵심 슬로건·카피 작성 등'},
+  {name:'히어로 에셋 제작 (영상·KV)',tip:'브랜드 메인 필름 및 핵심 비주얼(Key Visual) 제작 등'},
+  {name:'에이전시 협업 및 이해관계자 관리',tip:'외부 에이전시와 크리에이티브 방향성·제작 기준 조율, 내외부 이해관계자 커뮤니케이션 등'},
+  {name:'크리에이티브 에셋 품질 관리',tip:'브랜드 가이드라인·기술 사양 준수 여부 최종 검수 등'},
+  {name:'크리에이티브 이노베이션',   tip:'혁신적 크리에이티브 아이디어 발굴 및 제안 등'},
+],
+
+'Insight': [
+  {name:'소비자 리서치·인사이트',    tip:'정기·비정기 소비자 리서치 수행, 인사이트 도출 등'},
+  {name:'리서치 결과 보고 준비 및 자료 제작',tip:'딥다이브 리포트, PDCA, 리서치 결과 및 시사점·다음 단계 전달, 보고서 작성(덱작업 등)'},
+  {name:'리서치 프로젝트 관리',      tip:'리서치 타임라인 관리, 결과물 전달, 브리핑·디브리핑, 캠페인 일정 조율 등'},
+  {name:'타겟 전략·기획',            tip:'1YP 타겟 오디언스 설정, BU 타겟 정기 트래킹, Power Index 관리 등'},
+],
+
+'Innovation': [
+  {name:'이노베이션 전략·기획',      tip:'1~3YP, 비즈니스 케이스 수립, Balanced Choice CoE, 컨셉 개발 등'},
+  {name:'이노베이션 성과 보고 준비 및 자료 제작',tip:'이노베이션 월간 성과, 대시보드 트래킹, CAPEX 월간 마감, 보고서 작성(덱작업 등)'},
+  {name:'내외부 & 글로벌 이해관계자 관리',tip:'BU/Zone/글로벌 정기 미팅, 내외부 이해관계자 지원 및 커뮤니케이션 등'},
+  {name:'제품 개발',                 tip:'제품 개발 브리핑(PDP), 시음, 타임라인 조율 등'},
+  {name:'프로덕트 리서치',           tip:'소비자 제품 리서치 수행, 결과 기반 의사결정 등'},
+  {name:'이노베이션 에코시스템 운영',tip:'Inno Brewery, 뉴스레터, 워크숍(ISA 등), 글로벌 거버넌스(Pegasus) 등'},
+],
+
+'Strategy': [
+  {name:'브랜드·카테고리 전략',      tip:'1YP, 메가트렌드, 포트폴리오 감사, 수요 환경 분석, 카테고리 리더십, 자원 배분 등'},
+  {name:'정기 보고 준비 및 자료 제작',tip:'GHQ 보고, PPR, MPR 등 각종 정기 보고 및 관련 덱 준비, 보고서 작성(덱작업 등)'},
+  {name:'분석 및 인사이트',          tip:'POS 분석, Category Power, HHP 연구 등'},
+  {name:'KPI·마케팅 Finance 관리',   tip:'KPI & OWA 대시보드 관리, 마케팅 재원(T&M, LE) 운영 등'},
+],
+
+'Stella Artois': [
+  {name:'브랜드 전략·기획',          tip:'연간 브랜드 계획, 캠페인 기획, 우선순위 설정, 포트폴리오 전략 등'},
+  {name:'캠페인 개발',               tip:'커뮤니케이션 전략, 크리에이티브 브리핑, 캠페인 컨셉·에셋 개발 등'},
+  {name:'캠페인 실행',               tip:'캠페인 런칭, 액티베이션 관리, 이벤트 실행 및 운영 등'},
+  {name:'글로벌 브랜드 운영',        tip:'글로벌 보고, 거버넌스 요건 관리, 툴킷 적용, 글로벌 프로젝트 지원, 보고서 작성(덱작업 등)'},
+  {name:'소비자·비즈니스 인사이트',  tip:'소비자 리서치, 비즈니스 성과 분석, 캠페인 성과 리뷰, 러닝 도출 등'},
+  {name:'커머셜 실행 지원',          tip:'캠페인·런칭 준비 계획, 커머셜 내러티브 개발, 시장 실행 지원 등'},
+  {name:'이노베이션 프로젝트',       tip:'RFS, 아트워크, 상업화, 이노베이션 프로세스 지원 등'},
+  {name:'아트워크·라벨 개발',        tip:'비이노베이션 프로젝트(OBPPC) 아트워크, 단순 라벨 변경 등'},
+  {name:'에이전시 운영 및 이해관계자 관리',tip:'에이전시 프로젝트 개발·리뷰, 운영 관리, 내외부 이해관계자 커뮤니케이션 등'},
+  {name:'정기 보고 준비 및 자료 제작',tip:'CPR, QPR, MPR, Brand Review, GHQ 보고, 성과 트래킹, T&M 등 각종 정기 보고 및 관련 덱 준비, 보고서 작성(덱작업 등)'},
+],
+
+'S&E': [
+  {name:'브랜드 전략·기획',          tip:'연간 브랜드 계획, 캠페인 기획, 우선순위 설정, 포트폴리오 전략 등'},
+  {name:'캠페인 개발',               tip:'커뮤니케이션 전략, 크리에이티브 브리핑, 캠페인 컨셉·에셋 개발 등'},
+  {name:'캠페인 실행',               tip:'캠페인 런칭, 액티베이션 관리, 이벤트 실행 및 운영 등'},
+  {name:'글로벌 브랜드 운영',        tip:'글로벌 보고, 거버넌스 요건 관리, 툴킷 적용, 글로벌 프로젝트 지원, 보고서 작성(덱작업 등)'},
+  {name:'소비자·비즈니스 인사이트',  tip:'소비자 리서치, 비즈니스 성과 분석, 캠페인 성과 리뷰, 러닝 도출 등'},
+  {name:'커머셜 실행 지원',          tip:'캠페인·런칭 준비 계획, 커머셜 내러티브 개발, 시장 실행 지원 등'},
+  {name:'이노베이션 프로젝트',       tip:'RFS, 아트워크, 상업화, 이노베이션 프로세스 지원 등'},
+  {name:'아트워크·라벨 개발',        tip:'비이노베이션 프로젝트(OBPPC) 아트워크, 단순 라벨 변경 등'},
+  {name:'에이전시 운영 및 이해관계자 관리',tip:'에이전시 프로젝트 개발·리뷰, 운영 관리, 내외부 이해관계자 커뮤니케이션 등'},
+  {name:'정기 보고 준비 및 자료 제작',tip:'CPR, QPR, MPR, Brand Review, GHQ 보고, 성과 트래킹, T&M 등 각종 정기 보고 및 관련 덱 준비, 보고서 작성(덱작업 등)'},
+],
+
+'Cass Fresh': [
+  {name:'캠페인 개발',               tip:'커뮤니케이션 전략, 크리에이티브 브리핑, 캠페인 컨셉·에셋 개발, PR 전략 등'},
+  {name:'캠페인 실행',               tip:'캠페인 런칭, 액티베이션 관리, 이벤트 실행 및 운영 등'},
+  {name:'에이전시 운영 및 이해관계자 관리',tip:'에이전시 프로젝트 개발·리뷰, 운영 관리, 내외부 이해관계자 커뮤니케이션 및 조율 등'},
+  {name:'정기 보고 준비 및 자료 제작',tip:'CPR, QPR, MPR, 1YP, Brand Review, 성과 트래킹 등 각종 정기 보고 및 관련 덱 준비, 보고서 작성(덱작업 등)'},
+  {name:'예산 관리',                 tip:'연간 예산 계획, 월간 LE 관리, 예산 배분 등'},
+  {name:'커머셜 실행 지원',          tip:'캠페인·런칭 준비 계획, 커머셜 내러티브 개발, 시장 실행 지원 등'},
+  {name:'패키지 디자인·생산 지원',   tip:'신제품, OBPPC 패키지 디자인 및 제조 프로세스 관리 등'},
+  {name:'브랜드 PR 전략·실행',       tip:'PR 전략 수립, 언론·뉴미디어 액티베이션 기획 및 실행 등'},
+],
+
+'Cass H&W': [
+  {name:'브랜드 전략·기획',          tip:'연간 브랜드 계획, 캠페인 기획, 우선순위 설정, 포트폴리오 전략 등'},
+  {name:'소비자·비즈니스 인사이트',  tip:'소비자 리서치, 비즈니스 성과 분석, 캠페인 성과 리뷰, 러닝 도출 등'},
+  {name:'캠페인 개발',               tip:'커뮤니케이션 전략, 크리에이티브 브리핑, 캠페인 컨셉·에셋 개발, PR 전략 등'},
+  {name:'캠페인 실행',               tip:'캠페인 런칭, 액티베이션 관리, 이벤트 실행 및 운영 등'},
+  {name:'글로벌팀 커뮤니케이션',     tip:'글로벌 보고, 지원 및 커뮤니케이션 등'},
+  {name:'커머셜 실행 지원',          tip:'캠페인·런칭 준비 계획, 커머셜 내러티브 개발, 시장 실행 지원 등'},
+  {name:'이노베이션 프로젝트',       tip:'RFS, 아트워크, 상업화, 이노베이션 프로세스 지원 등'},
+  {name:'리노베이션 프로젝트',       tip:'RFS, 아트워크, 상업화, 비이노베이션 제품 출시 지원 전반 등'},
+  {name:'에이전시 운영 및 이해관계자 관리',tip:'에이전시 프로젝트 개발·리뷰, 운영 관리, 내외부 이해관계자 커뮤니케이션 등'},
+  {name:'정기 보고 준비 및 자료 제작',tip:'CPR, QPR, MPR, Brand Review, 성과 트래킹 등 각종 정기 보고 및 관련 덱 준비, 보고서 작성(덱작업 등)'},
+  {name:'예산 관리',                 tip:'월간 LE 관리, 예산 배분 등'},
+  {name:'파트너십 관리·실행',        tip:'메가 플랫폼 관리·실행, 브랜드 협업, 이벤트 실행 등'},
+],
+
+'Core & Value': [
+  {name:'브랜드 전략·기획',          tip:'연간 브랜드 계획, 캠페인 기획, 우선순위 설정, 포트폴리오 전략 등'},
+  {name:'캠페인 개발',               tip:'커뮤니케이션 전략, 크리에이티브 브리핑, 캠페인 컨셉·에셋 개발 등'},
+  {name:'캠페인 실행',               tip:'캠페인 런칭, 액티베이션 관리, 이벤트 실행 및 운영 등'},
+  {name:'소비자·비즈니스 인사이트',  tip:'소비자 리서치, 비즈니스 성과 분석, 캠페인 성과 리뷰, 러닝 도출 등'},
+  {name:'커머셜 실행 지원',          tip:'캠페인·런칭 준비 계획, 커머셜 내러티브 개발, 시장 실행 지원 등'},
+  {name:'이노베이션 프로젝트',       tip:'RFS, 아트워크, 상업화, 이노베이션 프로세스 지원 등'},
+  {name:'리노베이션 프로젝트',       tip:'RFS, 아트워크, 상업화, 비이노베이션 제품 출시 지원 전반 등'},
+  {name:'에이전시 운영 및 이해관계자 관리',tip:'에이전시 프로젝트 개발·리뷰, 운영 관리, 내외부 이해관계자 커뮤니케이션 등'},
+  {name:'정기 보고 준비 및 자료 제작',tip:'CPR, QPR, MPR, Brand Review, 성과 트래킹 등 각종 정기 보고 및 관련 덱 준비, 보고서 작성(덱작업 등)'},
+],
+
+'NB Strategy & Portfolio': [
+  {name:'포트폴리오 전략·아키텍쳐',  tip:'내셔널 브랜드 포트폴리오 전략 수립, 브랜드 아이덴티티·아키텍쳐 정의 및 관리 등'},
+  {name:'연간 브랜드 전략·기획',     tip:'연간 브랜드 계획(1YP/Grow/SR) 수립 등'},
+  {name:'글로벌 보고·서포트',        tip:'마케팅, 지역, 글로벌 Core Co. 팀 대상 핵심 보고서 및 프레젠테이션 준비 등'},
+  {name:'브랜드 성과 분석',          tip:'브랜드 성과 평가, 강화·최적화 기회 발굴, 월간 Fact Sheet 작성 등'},
+  {name:'브랜드·카테고리 전략 및 기획',tip:'성과·리서치·트렌드·평판 기반 인사이트 도출, 브랜드 및 카테고리 액션 플랜 수립 등'},
+  {name:'브랜드 캠페인·이니셔티브 지원',tip:'전략적 아이디에이션 및 성수기 수요에 따른 캠페인·이니셔티브 실행 지원 등'},
+  {name:'정기 보고 준비 및 자료 제작',tip:'각종 정기 보고 및 관련 덱 준비, 보고서 작성(덱작업 등)'},
+],
+
+'National Brand Creative': [
+  {name:'크리에이티브 전략·커뮤니케이션 기획',tip:'연간 커뮤니케이션 기획, 캠페인 방향성 설정, 크리에이티브 전략 수립 등'},
+  {name:'소비자 검증·크리에이티브 인사이트',tip:'소비자 테스트, FGD, 컨셉 검증, 커뮤니케이션 피드백 및 최적화 등'},
+  {name:'캠페인 개발',               tip:'캠페인 컨셉 개발, 크리에이티브 브리핑, 커뮤니케이션 전략, 에셋 기획 등'},
+  {name:'크리에이티브 에셋 제작',    tip:'메인 TVC, KV, 패키지 및 캠페인 에셋 제작·개발 등'},
+  {name:'캠페인 실행·운영',          tip:'캠페인 런칭 관리, 프로덕션 관리, 에셋 롤아웃 및 운영 등'},
+  {name:'에이전시 운영 및 이해관계자 관리',tip:'에이전시 브리핑, 리뷰, 피드백, 프로젝트 관리, 크리에이티브 품질 관리, 내외부 이해관계자 커뮤니케이션 등'},
+  {name:'브랜드 자산 관리',          tip:'브랜드 가이드라인 관리, 에셋 거버넌스, 툴킷·에셋 라이브러리 관리 등'},
+  {name:'커머셜 크리에이티브 지원',  tip:'커머셜 POCM 크리에이티브 관리 등'},
+],
+
+'Media': [
+  {name:'에이전시 관리',             tip:'미디어 에이전시 관리 및 산출물 품질 관리 등'},
+  {name:'매체 관리',                 tip:'매체사 관계 구축, 미디어 협상 등'},
+  {name:'미디어 플래닝',             tip:'미디어 플래닝, KPI 설정, 미디어 믹스 수립 등'},
+  {name:'미디어 전략',               tip:'미디어 전략 수립 및 작성 등'},
+  {name:'정기·캠페인 보고 준비 및 자료 제작',tip:'주간·월간·캠페인 사후 보고 및 관련 자료 제작'},
+  {name:'트렌드 리포트',             tip:'미디어 트렌드 모니터링 및 보고 등'},
+  {name:'경쟁사 리포트',             tip:'경쟁사 활동 모니터링 및 보고 등'},
+  {name:'미디어 ROI 분석',           tip:'데이터 수집·업로드, MROI 분석 및 최적화 등'},
+  {name:'캠페인 운영·최적화',        tip:'캠페인 모니터링, 운영 및 성과 최적화 등'},
+],
+
+'Social': [
+  {name:'소셜 전략',                 tip:'브랜드 목표·캠페인·오디언스 인사이트 기반 소셜 전략 수립 등'},
+  {name:'콘텐츠 기획·운영',          tip:'상시·캠페인 소셜 콘텐츠 기획, 개발 및 관리 등'},
+  {name:'페이드 소셜 운영·관리',     tip:'페이드 소셜 크리에이티브 에셋 개발 및 분류 체계·거버넌스 관리 등'},
+  {name:'인플루언서·크리에이터 관리',tip:'인플루언서 파트너십, 콘텐츠 개발, 성과 평가 등'},
+  {name:'소셜 리스닝·인사이트 분석', tip:'대화 모니터링, 소비자 감성 분석, 인사이트 도출 등'},
+  {name:'소셜 커뮤니티 관리',        tip:'온라인 커뮤니티 모니터링·참여, 오디언스 인터랙션 관리 등'},
+  {name:'디지털 캠페인·액티베이션',  tip:'디지털 캠페인 기획, 실행, 최적화, 부서 간 조율 등'},
+  {name:'소셜 성과 분석·보고',       tip:'KPI 트래킹, 성과 평가, 최적화 방안 제시 등'},
+  {name:'RMCC 컴플라이언스 검토',    tip:'주류 마케팅 규정 및 내부 가이드라인 준수 여부 콘텐츠 검토 등'},
+],
+
+'Partnership': [
+  {name:'계약 협상, 관리 및 내외부 이해관계자 관리',tip:'계약 협상·검토·서명, 계약 이력 관리, 이해관계자 커뮤니케이션 등'},
+  {name:'IP 활용 관리·파트너사 승인',tip:'IP 사용 가이드라인 준수 관리, 파트너사 IP 활용 승인 등'},
+  {name:'BTL 실행',                  tip:'소규모 페스티벌 스폰서십 등 브랜디드 이벤트 BTL 실행 등'},
+  {name:'파트너십·스폰서십 평가',    tip:'성과 지표 수립, 스폰서십·파트너십 결과 평가 등'},
+  {name:'C&C 타운홀 및 행사 기획 관리',tip:'C&C 월간 타운홀 및 내부 행사 기획·운영'},
+  {name:'C&C Creative Eco system 관리',tip:'크리에이티브 에코시스템 관리, Creative Council 준비·운영 등'},
+  {name:'C&C 마케팅 평판 관리',      tip:'기업·브랜드 이미지 유지를 위한 어워드 제출, PR 활동 등'},
+  {name:'C&C GENOME',                tip:'GENOME 프로세스 주도, 컴플라이언스 유지, 리스크 관리 등'},
+  {name:'C&C 마케팅 교육 관리',      tip:'마케팅 관련 교육·어워드 프로그램 관리 등'},
+  {name:'C&C Project 업무',          tip:'C&C 팀 내 프로젝트성 업무 관리 등'},
+],
+
+'Intelligence': [
+  {name:'디지털 에코시스템 분석',    tip:'소셜 리스닝·버즈 분석, 자사 디지털 채널 성과 트래킹, SEO/SEM 분석 등'},
+  {name:'디지털 고객 행동·여정 분석',tip:'데이터 세그먼트 기반 소비자 프로파일링, UX 리서치, 사용자 행동 경로 최적화 등'},
+  {name:'DX 전략·디지털 플랫폼 기획',tip:'DX 전략 수립, 디지털 프로덕트 콘텐츠 기획, 1YP 지원 등'},
+  {name:'데이터 인프라 관리',        tip:'데이터 파이프라인(ETL) 구축, 데이터 수집·보강 기획, 디지털 미디어 데이터 검증 등'},
+  {name:'마텍 플랫폼 운영',          tip:'CDP 관리, 디지털 성과 태깅 구현 및 데이터 QA, MarTech 툴 운영 등'},
+  {name:'데이터 거버넌스·지원',      tip:'개인정보보호(PIPA) 컴플라이언스 관리, 데이터 수집 프로세스 관리, 데이터 리터러시 지원 등'},
+  {name:'정기 보고 준비 및 자료 제작',tip:'CPR Connections, Innovation Tracker 등 정기 보고 작성 및 자료 제작'},
+  {name:'자동화 대시보드 개발',      tip:'BI 자동화 대시보드(Looker Studio) 기획 및 개발 등'},
+],
+
+};
+
+const CATS = ['기타 덱 작업','코칭 및 피플매니징','정기 미팅','에드혹 대응','이해관계자 관리','외근','구매 및 비용처리','어드민·반복'];
+const RANK_CATS = ['기타 덱 작업','코칭 및 피플매니징','정기 미팅','에드혹 대응','이해관계자 관리','외근','구매 및 비용처리','어드민·반복'];
+
+// ── STATE ─────────────────────────────────────────────────────────────────────
+let uType = ''; // 'member' | 'manager'
+let lv = {};    // likert values
+let rCur = [], rShd = [], rMgr = []; // rank arrays
+let mgrCount = 0;
+let allResp = JSON.parse(localStorage.getItem('swd_ob') || '[]');
+
+// ── INIT CHIPS & RANKS ────────────────────────────────────────────────────────
+function getActiveCats() {
+  var team = document.getElementById('fTeam') ? document.getElementById('fTeam').value : '';
+  var teamCats = (team && TEAM_CATS[team]) ? TEAM_CATS[team] : [];
+  var exclude = (team && TEAM_COMMON_EXCLUDE[team]) ? TEAM_COMMON_EXCLUDE[team] : [];
+  // Common cats filtered for this team, as plain objects (no tooltip)
+  var common = RANK_CATS.filter(function(n){ return exclude.indexOf(n)===-1; })
+                        .map(function(n){ return {name:n, tip:''}; });
+  // TEAM FIRST, then common
+  return teamCats.concat(common);
+}
+
+function buildChips(id) {
+  const w = document.getElementById(id);
+  if (!w) return;
+  w.innerHTML = '';
+  const cats = getActiveCats();
+  cats.forEach(cat => {
+    const name = cat.name || cat;
+    const tip  = cat.tip  || '';
+    if (tip) {
+      const wrap = document.createElement('div');
+      wrap.className = 'chip-wrap';
+      const chip = document.createElement('div');
+      chip.className = 'chip';
+      chip.textContent = name;
+      chip.dataset.cat = name;
+      chip.onclick = function() { chip.classList.toggle('sel'); syncChipStates(); };
+      const info = document.createElement('span');
+      info.className = 'chip-info';
+      info.textContent = 'i';
+      const tooltip = document.createElement('div');
+      tooltip.className = 'chip-tooltip';
+      tooltip.textContent = tip;
+      wrap.appendChild(chip);
+      wrap.appendChild(info);
+      wrap.appendChild(tooltip);
+      w.appendChild(wrap);
+    } else {
+      const el = document.createElement('div');
+      el.className = 'chip';
+      el.textContent = name;
+      el.dataset.cat = name;
+      el.onclick = function() { el.classList.toggle('sel'); syncChipStates(); };
+      w.appendChild(el);
+    }
+  });
+}
+function buildRank(id, type) {
+  const w = document.getElementById(id);
+  if (!w) return;
+  w.innerHTML = '';
+  const rankList = getActiveCats().filter(x => (x.name || x) !== '기타');
+  rankList.forEach(cat => {
+    const name = cat.name || cat;
+    const tip  = cat.tip  || '';
+    if (tip) {
+      // rank chip with ℹ tooltip
+      const wrap = document.createElement('div');
+      wrap.className = 'chip-wrap';
+      const el = document.createElement('div');
+      el.className = 'rchip';
+      el.textContent = name;
+      el.dataset.cat = name;
+      el.onclick = () => rankTap(el, type);
+      const info = document.createElement('span');
+      info.className = 'chip-info';
+      info.textContent = 'i';
+      const tooltip = document.createElement('div');
+      tooltip.className = 'chip-tooltip';
+      tooltip.textContent = tip;
+      wrap.appendChild(el);
+      wrap.appendChild(info);
+      wrap.appendChild(tooltip);
+      w.appendChild(wrap);
+    } else {
+      const el = document.createElement('div');
+      el.className = 'rchip';
+      el.textContent = name;
+      el.dataset.cat = name;
+      el.onclick = () => rankTap(el, type);
+      w.appendChild(el);
+    }
+  });
+}
+['ch5','ch6','ch7','ch8'].forEach(function(id){ buildChips(id); });
+buildRank('rCurrent','cur');
+buildRank('rShould','shd');
+if (document.getElementById('rMgrShould')) buildRank('rMgrShould','mgr');
+
+
+function syncChipStates() {
+  // Collect all selected category names and which container they're in
+  var selectedIn = {};
+  ['ch5','ch6','ch7','ch8'].forEach(function(cid) {
+    document.querySelectorAll('#' + cid + ' .chip.sel').forEach(function(chip) {
+      var name = chip.dataset.cat || chip.textContent.trim();
+      if (!selectedIn[name]) selectedIn[name] = [];
+      selectedIn[name].push(cid);
+    });
+  });
+
+  // Update disabled state across all quadrant chip containers
+  ['ch5','ch6','ch7','ch8'].forEach(function(cid) {
+    document.querySelectorAll('#' + cid + ' .chip').forEach(function(chip) {
+      var name = chip.dataset.cat || chip.textContent.trim();
+      var isSelectedHere = chip.classList.contains('sel');
+      var isSelectedElsewhere = selectedIn[name] &&
+        selectedIn[name].some(function(sid){ return sid !== cid; });
+      if (isSelectedElsewhere && !isSelectedHere) {
+        chip.classList.add('disabled');
+      } else {
+        chip.classList.remove('disabled');
+      }
+    });
+  });
+}
+
+
+function getCats(id) {
+  const w = document.getElementById(id);
+  return w ? [...w.querySelectorAll('.chip.sel')].map(el => el.dataset.cat || el.textContent).join(', ') : '';
+}
+
+// ── RANK ─────────────────────────────────────────────────────────────────────
+function rankTap(el, type) {
+  const arr = type==='cur' ? rCur : type==='shd' ? rShd : rMgr;
+  const cid  = type==='cur' ? 'rCurrent' : type==='shd' ? 'rShould' : 'rMgrShould';
+  const txt  = el.querySelector('.rtxt') ? el.querySelector('.rtxt').textContent : el.textContent.trim();
+
+  if (el.classList.contains('ranked')) {
+    arr.splice(arr.indexOf(txt), 1);
+    el.classList.remove('ranked');
+    el.innerHTML = txt;
+    // re-number remaining
+    arr.forEach((item, i) => {
+      document.getElementById(cid).querySelectorAll('.rchip.ranked').forEach(ch => {
+        if (ch.querySelector('.rtxt') && ch.querySelector('.rtxt').textContent === item)
+          ch.innerHTML = `<span class="rnum">${i+1}</span><span class="rtxt">${item}</span>`;
+      });
+    });
+    return;
+  }
+  if (arr.length >= 3) { alert('TOP 3만 선택 가능합니다 / Only TOP 3 allowed.'); return; }
+  arr.push(txt);
+  el.classList.add('ranked');
+  el.innerHTML = `<span class="rnum">${arr.length}</span><span class="rtxt">${txt}</span>`;
+}
+
+// ── LIKERT ────────────────────────────────────────────────────────────────────
+function setL(qid, val, btn) {
+  lv[qid] = val;
+  document.getElementById('l'+qid).querySelectorAll('.lb').forEach((b,i) => {
+    b.className = 'lb';
+    if (i+1===val) b.classList.add(val<=2?'s-lo':val===3?'s-mi':'s-hi');
+  });
+}
+
+// ── CONST SUM ─────────────────────────────────────────────────────────────────
+function updSum() {
+  let t = 0;
+  document.querySelectorAll('.csi').forEach(i => t += parseInt(i.value)||0);
+  const row = document.getElementById('sumRow');
+  document.getElementById('sumNum').textContent = t + ' / 100';
+  row.className = 'sum-row' + (t===100?' done':t>100?' over':'');
+}
+
+function updWkTotal() {
+  let t = 0;
+  document.querySelectorAll('.wki').forEach(i => t += parseFloat(i.value)||0);
+  const el1 = document.getElementById('wkTotal');
+  const el2 = document.getElementById('wkTotalEn');
+  if (el1) el1.textContent = t;
+  if (el2) el2.textContent = t;
+}
+
+
+
+
+// ── TYPE SELECT ───────────────────────────────────────────────────────────────
+function setType(t) {
+  uType = t;
+  document.getElementById('tMember').classList.toggle('sel', t==='member');
+  document.getElementById('tManager').classList.toggle('sel', t==='manager');
+  document.getElementById('fTargetWrap').style.display = t==='manager' ? 'block' : 'none';
+  document.getElementById('mgrNotice').classList.toggle('on', t==='manager');
+  // 선택한 유형에 따라 프로세스 안내 표시
+  document.getElementById('pgMember').style.display = t==='member' ? 'grid' : 'none';
+  document.getElementById('pgManager').style.display = t==='manager' ? 'grid' : 'none';
+}
+
+// ── START ─────────────────────────────────────────────────────────────────────
+function startSurvey() {
+  if (!uType) { alert('응답자 유형을 선택해주세요 / Please select respondent type.'); return; }
+  if (!v('fName')) { alert('이름을 입력해주세요 / Please enter your name.'); return; }
+  if (!document.getElementById('fDivision').value) { alert('부문을 선택해주세요 / Please select your division.'); return; }
+  if (!document.getElementById('fTeam').value) { alert('팀을 선택해주세요 / Please select your team.'); return; }
+  if (uType==='manager' && !v('fTarget')) { alert('응답 대상 팀원 이름을 입력해주세요 / Please enter the target member name.'); return; }
+  if (uType==='manager') { setupMgr(); go(2); }
+  else go(1);
+}
+const v = id => { const el = document.getElementById(id); return el ? el.value.trim() : ''; };
+
+// ── SETUP P2 VIEWS ────────────────────────────────────────────────────────────
+function setupMember() {
+  document.getElementById('tbar').classList.remove('on');
+  document.getElementById('mgrQ3').style.display = 'none';
+  document.getElementById('hintMember').style.display = 'block';
+  document.getElementById('hintManager').style.display = 'none';
+  if (document.getElementById('noteMember')) document.getElementById('noteMember').style.display = 'inline-block';
+  if (document.getElementById('noteManager')) document.getElementById('noteManager').style.display = 'none';
+  document.getElementById('p2badge').className = 'sbadge sb-p2';
+  document.getElementById('p2badge').textContent = 'P2';
+  document.getElementById('p2title').textContent = '현재 업무의 가치–시간투자 분류 / Value–Effort Classification';
+  document.getElementById('p2sub').textContent = '업무를 가치와 노력 기준으로 분류해주세요 · Classify your work by value and effort';
+  // show member labels
+  ['q5','q6','q7','q8'].forEach(q => {
+    show(q+'tm'); show(q+'em'); show(q+'blm');
+    hide(q+'tg'); hide(q+'eg'); hide(q+'blg');
+  });
+  document.getElementById('p2NextBtn').textContent = '다음 →';
+  // Hide manager matrix, show member Q5-Q8
+  document.getElementById('mgrMatCard').style.display = 'none';
+  document.querySelectorAll('.memberP2').forEach(el => el.style.display = 'block');
+}
+function setupMgr() {
+  document.getElementById('tbar').classList.add('on');
+  document.getElementById('tbarName').textContent = v('fTarget');
+  document.getElementById('tbarCount').textContent = (mgrCount+1) + '번째';
+  document.getElementById('mgrQ3').style.display = 'block';
+  document.getElementById('hintMember').style.display = 'none';
+  document.getElementById('hintManager').style.display = 'block';
+  if (document.getElementById('noteMember')) document.getElementById('noteMember').style.display = 'none';
+  if (document.getElementById('noteManager')) document.getElementById('noteManager').style.display = 'inline-block';
+  document.getElementById('p2badge').className = 'sbadge sb-p3';
+  document.getElementById('p2badge').textContent = 'M';
+  document.getElementById('p2title').textContent = '팀원 업무의 가치–시간투자 분류 / Member Work Classification';
+  document.getElementById('p2sub').textContent = '선택한 팀원의 업무를 가치와 노력 기준으로 분류해주세요';
+  // show manager labels
+  ['q5','q6','q7','q8'].forEach(q => {
+    hide(q+'tm'); hide(q+'em'); hide(q+'blm');
+    show(q+'tg'); show(q+'eg'); show(q+'blg');
+  });
+  document.getElementById('p2NextBtn').textContent = '제출하기 / Submit ✓';
+
+  // Show manager matrix, hide member Q5-Q8
+  document.getElementById('mgrMatCard').style.display = 'block';
+  document.querySelectorAll('.memberP2').forEach(el => el.style.display = 'none');
+  buildMgrMatrix();
+}
+
+const show = id => { const el=document.getElementById(id); if(el) el.style.display='block'; };
+const hide = id => { const el=document.getElementById(id); if(el) el.style.display='none'; };
+function go(n) {
+  document.querySelectorAll('.scr').forEach(s => s.classList.remove('on'));
+  document.getElementById('s'+n).classList.add('on');
+  const pct = uType==='manager' ? (n===0?0:n===2?50:100) : (n/5*100);
+  document.getElementById('prog').style.width = pct+'%';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+function nextP1() {
+  // validate Part 1
+  let total=0; document.querySelectorAll('.csi').forEach(i=>total+=parseInt(i.value)||0);
+  if (total!==100) { alert('Q1: 합계가 정확히 100이 되어야 합니다 (현재 '+total+') / Total must equal 100.'); return; }
+  if (rCur.length!==3) { alert('Q2: TOP 3를 선택해주세요 / Please select TOP 3.'); return; }
+  if (rShd.length!==3) { alert('Q3: TOP 3를 선택해주세요 / Please select TOP 3.'); return; }
+  setupMember();
+  go(2);
+}
+function backP2() { uType==='manager' ? go(0) : go(1); }
+function nextP2() {
+  if (uType==='manager') {
+    if (!validateP2Mgr()) return;
+    submitMgr();
+  } else {
+    if (!validateP2Member()) return;
+    go(3);
+  }
+}
+
+// ── VALIDATION ────────────────────────────────────────────────────────────────
+function validateP2Member() {
+  // Validate chip selections
+  for (let [cid, lbl] of [['ch5','Q5'],['ch6','Q6'],['ch7','Q7'],['ch8','Q8']]) {
+    if (!getCats(cid)) { alert(lbl+': 업무 유형을 1개 이상 선택해주세요 / Please select at least one work type.'); return false; }
+  }
+  // Validate sub-question textareas
+  for (let [id, lbl] of [['q5b','Q5'],['q6b','Q6'],['q7b','Q7'],['q8b','Q8']]) {
+    const el = document.getElementById(id);
+    if (el && !el.value.trim()) { alert(lbl+' 의견: 필수 입력입니다 / '+lbl+' comment is required.'); return false; }
+  }
+  return true;
+}
+function validateP2Mgr() {
+  // 매니저 사분면 매트릭스 모든 항목은 선택 항목 (필수 아님)
+  // Q3 TOP3도 선택 항목으로 변경
+  return true;
+}
+
+
+
+function nextP3() {
+  const qMap={q9:'Q9',q10:'Q10',q12:'Q11',q14:'Q12',q16:'Q13',q18:'Q14',q20:'Q15'};
+  for(const [q,lbl] of Object.entries(qMap)){
+    if(!lv[q]){alert(lbl+': 점수를 선택해주세요. 모든 응답에 답변해야 합니다.');return;}
+    const r=document.getElementById(q+'r');
+    if(r&&!r.value.trim()){
+      alert(lbl+' 주관식 답변이 비어 있습니다. 모든 응답에 답변해야 합니다.');
+      r.scrollIntoView({behavior:'smooth',block:'center'});r.focus();return;
+    }
+  }
+  go(4);
+}
+function validateP3() {
+  // Remaining P3 questions (internal IDs): q9, q10, q12, q14, q16, q18, q20
+  const qs = ['q9','q10','q12','q14','q16','q18','q20'];
+  for (let q of qs) {
+    if (!lv[q]) { alert(q.toUpperCase()+': 점수를 선택해주세요 / Please select a score.'); return false; }
+    const r = document.getElementById(q+'r');
+    if (r && !r.value.trim()) { alert(q.toUpperCase()+': 의견을 입력해주세요 / Please share comments.'); return false; }
+  }
+  return true;
+}
+function validateP4() {
+  // P4 자유 의견은 선택 항목 (필수 아님)
+  return true;
+}
+
+// ── GOOGLE SHEETS API URL ─────────────────────────────────────────────────────
+const GS_URL = 'https://script.google.com/macros/s/AKfycbxGTN_AzdpzywcShhtVw2cJysALVfro2IT7-Yx-EtFS-Jwvb2hV6TEeIlxxxXGmBwbR/exec';
+
+// ── SHEETS 전송 (실패 시 로컬 백업 → 재시도) ─────────────────────────────────
+async function sendToSheets(resp) {
+  // 1) 항상 localStorage에 먼저 저장 (안전망)
+  allResp.push(resp);
+  localStorage.setItem('swd_ob', JSON.stringify(allResp));
+  updAdmin();
+
+  // 2) 로딩 오버레이 표시
+  showLoading(true);
+
+  try {
+    // Google Apps Script로 POST 전송 (URL 길이 제한 회피)
+    // text/plain 사용 → CORS preflight 없이 no-cors 전송 가능
+    const res = await fetch(GS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ action: 'save', data: resp }),
+    });
+
+    // 전송 완료 간주 (no-cors는 응답 확인 불가)
+    await retrySaved();
+    showLoading(false);
+    showSendStatus(true);
+    return true;
+  } catch (err) {
+    // 3) 전송 실패 → 미전송 목록에 저장, 완료 화면은 그대로 이동
+    savePending(resp);
+    showLoading(false);
+    showSendStatus(false);
+    console.warn('Sheets 전송 실패 (로컬 저장됨):', err.message);
+    return false; // 실패해도 완료 화면으로는 이동
+  }
+}
+
+// 미전송 데이터 localStorage 관리
+function savePending(resp) {
+  const pending = JSON.parse(localStorage.getItem('swd_pending') || '[]');
+  pending.push(resp);
+  localStorage.setItem('swd_pending', JSON.stringify(pending));
+}
+
+async function retrySaved() {
+  const pending = JSON.parse(localStorage.getItem('swd_pending') || '[]');
+  if (!pending.length) return;
+  const succeeded = [];
+  for (const resp of pending) {
+    try {
+      const url = GS_URL + '?action=save&data=' + encodeURIComponent(JSON.stringify(resp));
+      await fetch(url, { method: 'GET', mode: 'no-cors' });
+      succeeded.push(resp);
+    } catch (_) {}
+  }
+  // 성공한 항목만 pending에서 제거
+  const remaining = pending.filter(p => !succeeded.includes(p));
+  localStorage.setItem('swd_pending', JSON.stringify(remaining));
+  if (succeeded.length) console.log('재전송 성공:', succeeded.length + '건');
+}
+
+// 로딩 오버레이
+function showLoading(on) {
+  let el = document.getElementById('loadingOverlay');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'loadingOverlay';
+    el.innerHTML = `
+      <div style="text-align:center;">
+        <div style="font-size:36px;margin-bottom:14px;">⏳</div>
+        <div style="font-size:15px;font-weight:700;color:var(--white);">제출 중입니다 / Submitting...</div>
+        <div style="font-size:11px;color:var(--gray);margin-top:6px;">잠시만 기다려주세요 / Please wait a moment</div>
+      </div>`;
+    el.style.cssText = 'position:fixed;inset:0;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;z-index:9999;';
+    document.body.appendChild(el);
+  }
+  el.style.display = on ? 'flex' : 'none';
+}
+
+// ── SUBMIT ────────────────────────────────────────────────────────────────────
+async function submitMember() {
+  if (!validateP4()) return;
+  if (!validateP3()) { go(3); return; }
+
+  // 주간 실질 시간
+  const weeklyHours = {};
+  document.querySelectorAll('.wki').forEach(el => { weeklyHours[el.dataset.cat] = parseFloat(el.value)||0; });
+
+  // 월간 배분 비중
+  const timeAlloc = {};
+  document.querySelectorAll('.csi').forEach(el => { timeAlloc[el.dataset.cat] = parseInt(el.value)||0; });
+
+  const resp = {
+    ts: new Date().toLocaleString('ko-KR'), type:'member',
+    name: v('fName'),
+    division: document.getElementById('fDivision').value,
+    team: document.getElementById('fTeam').value, target:'',
+    weeklyHours,
+    timeAlloc,
+    q2_cur: rCur.join(' > '), q3_shd: rShd.join(' > '), q4: v('q4'),
+    q5_cats:getCats('ch5'), q5a:'', q5b:v('q5b'),
+    q6_cats:getCats('ch6'), q6a:'', q6b:v('q6b'),
+    q7_cats:getCats('ch7'), q7a:'', q7b:v('q7b'),
+    q8_cats:getCats('ch8'), q8a:'', q8b:v('q8b'),
+    q9:lv.q9||'', q9r:v('q9r'), q10:lv.q10||'', q10r:v('q10r'), q11:'',
+    q12:lv.q12||'', q12r:v('q12r'), q13:'', q13r:'',
+    q14:lv.q14||'', q14r:v('q14r'), q15:'', q15r:'',
+    q16:lv.q16||'', q16r:v('q16r'), q17:'', q17r:'',
+    q18:lv.q18||'', q18r:v('q18r'), q19:'', q19r:'',
+    q20:lv.q20||'', q20r:v('q20r'), q21:'', q21r:'',
+    q22:v('q22'), q23:v('q23'), q24:v('q24'), q25:v('q25'),
+  };
+
+  await sendToSheets(resp);
+  document.getElementById('mgrNextBlock').style.display = 'none';
+  go(5);
+}
+
+async function submitMgr() {
+  const resp = {
+    ts: new Date().toLocaleString('ko-KR'), type:'manager',
+    name: v('fName'),
+    division: document.getElementById('fDivision').value,
+    team: document.getElementById('fTeam').value, target: v('fTarget'),
+    timeAlloc: {},
+    q2_cur:'', q3_shd: rMgr.join(' > '), q4:'',
+    mgr_matrix: (function(){
+      var allCats = getActiveCats().map(function(x){ return x.name || x; });
+      var r={};
+      allCats.forEach(function(cat,i){
+        var sel=document.querySelector('input[name="mq'+i+'"]:checked');
+        r[cat]=sel?sel.value:'';
+      });
+      return JSON.stringify(r);
+    })(),
+    mgr_open: document.getElementById('mgrOpenQ')?document.getElementById('mgrOpenQ').value:'',
+    q5_cats:getCats('ch5'), q5a:'', q5b:v('q5b'),
+    q6_cats:getCats('ch6'), q6a:'', q6b:v('q6b'),
+    q7_cats:getCats('ch7'), q7a:'', q7b:v('q7b'),
+    q8_cats:getCats('ch8'), q8a:'', q8b:v('q8b'),
+    q9:'',q9r:'',q10:'',q10r:'',q11:'',
+    q12:'',q12r:'',q13:'',q13r:'',q14:'',q14r:'',q15:'',q15r:'',
+    q16:'',q16r:'',q17:'',q17r:'',q18:'',q18r:'',q19:'',q19r:'',
+    q20:'',q20r:'',q21:'',q21r:'',
+    q22:'',q23:'',q24:'',q25:'',
+  };
+  mgrCount++;
+
+  await sendToSheets(resp);
+  document.getElementById('mgrNextBlock').style.display = 'block';
+  go(5);
+}
+
+function continueNextMember() {
+  // reset manager P2 fields, keep name/team
+  document.getElementById('fTarget').value = '';
+  // Reset all radio buttons including dynamic team rows
+  document.querySelectorAll('.mgr-mat input[type=radio]').forEach(function(r){r.checked=false; r.dataset.wasChecked='false';});
+  // Re-run updateP1Tables to keep matrix in sync on next member
+  if (typeof updateP1Tables === 'function') updateP1Tables();
+  var oq=document.getElementById('mgrOpenQ'); if(oq) oq.value='';
+  rMgr = [];
+  ['q5b','q6b','q7b','q8b'].forEach(id => { const el=document.getElementById(id); if(el) el.value=''; });
+  ['ch5','ch6','ch7','ch8'].forEach(id => document.querySelectorAll('#'+id+' .chip').forEach(c=>c.classList.remove('sel')));
+  buildRank('rMgrShould','mgr');
+  go(0);
+  setTimeout(()=>document.getElementById('fTarget').focus(), 400);
+}
+
+// ── EXCEL ─────────────────────────────────────────────────────────────────────
+function dlExcel() {
+  if (!allResp.length) { alert('저장된 응답이 없습니다 / No responses saved.'); return; }
+  const wb = XLSX.utils.book_new();
+  const cats = ['전략·기획','크리에이티브','분석·인사이트','미팅','보고','덱 작업','어드민·반복','운영 업무','이해관계자 관리','에드혹 대응','기타'];
+  const h = ['제출일시','유형','이름','팀','평가대상',
+    ...cats.map(c=>'[시간]'+c), '기타_내용',
+    'Q2_현재TOP3','Q3_이상TOP3','Q4',
+    'Q5_카테고리','Q5a','Q5b','Q6_카테고리','Q6a','Q6b',
+    'Q7_카테고리','Q7a','Q7b','Q8_카테고리','Q8a','Q8b',
+    'Q9','Q9의견','Q10','Q10의견','Q11',
+    'Q12','Q12의견','Q13','Q13의견','Q14','Q14의견','Q15','Q15의견',
+    'Q16','Q16의견','Q17','Q17의견','Q18','Q18의견','Q19','Q19의견',
+    'Q20','Q20의견','Q21','Q21의견',
+    'Q22','Q23','Q24','Q25'];
+  const rows = allResp.map(r => [
+    r.ts, r.type, r.name, r.team, r.target,
+    ...cats.map(c=>r.timeAlloc?.[c]||0), r.timeAlloc?.['기타_내용']||'',
+    r.q2_cur, r.q3_shd, r.q4,
+    r.q5_cats, r.q5a, r.q5b, r.q6_cats, r.q6a, r.q6b,
+    r.q7_cats, r.q7a, r.q7b, r.q8_cats, r.q8a, r.q8b,
+    r.q9, r.q9r, r.q10, r.q10r, r.q11,
+    r.q12, r.q12r, r.q13, r.q13r, r.q14, r.q14r, r.q15, r.q15r,
+    r.q16, r.q16r, r.q17, r.q17r, r.q18, r.q18r, r.q19, r.q19r,
+    r.q20, r.q20r, r.q21, r.q21r,
+    r.q22, r.q23, r.q24, r.q25
+  ]);
+  const ws = XLSX.utils.aoa_to_sheet([h,...rows]);
+  ws['!cols'] = h.map(()=>({wch:20}));
+  XLSX.utils.book_append_sheet(wb, ws, 'Raw Data');
+
+  // GAP sheet
+  const members  = allResp.filter(r=>r.type==='member');
+  const managers = allResp.filter(r=>r.type==='manager');
+  if (members.length && managers.length) {
+    const gh = ['팀원','팀','구성원_이상TOP3','매니저_이상TOP3','구성원_저가치고노력','매니저_저가치고노력'];
+    const gr = members.map(m => {
+      const mg = managers.find(x=>x.target===m.name && x.team===m.team);
+      return [m.name, m.team, m.q3_shd, mg?mg.q3_shd:'미응답', m.q7a, mg?mg.q7a:'미응답'];
+    });
+    const ws2 = XLSX.utils.aoa_to_sheet([gh,...gr]);
+    ws2['!cols'] = gh.map(()=>({wch:28}));
+    XLSX.utils.book_append_sheet(wb, ws2, '구성원-매니저 GAP');
+  }
+  XLSX.writeFile(wb, 'SWD_OB_'+new Date().toLocaleDateString('ko-KR').replace(/\./g,'').replace(/ /g,'')+'.xlsx');
+}
+
+// ── ADMIN ─────────────────────────────────────────────────────────────────────
+function togAdmin() { document.getElementById('admPanel').classList.toggle('on'); updAdmin(); }
+function updAdmin() {
+  document.getElementById('aTotal').textContent   = allResp.length;
+  document.getElementById('aMember').textContent  = allResp.filter(r=>r.type==='member').length;
+  document.getElementById('aManager').textContent = allResp.filter(r=>r.type==='manager').length;
+}
+
+// 전송 상태 메시지 표시
+function showSendStatus(success) {
+  const el = document.getElementById('sendStatus');
+  if (!el) return;
+  if (success) {
+    el.style.cssText = 'display:block;background:var(--greensft);color:var(--green);border:1.5px solid #A7D9B8;margin:14px auto 0;max-width:380px;padding:10px 14px;border-radius:7px;font-size:12px;';
+    el.innerHTML = '\u2705 &nbsp;\ub370\uc774\ud130\uac00 \uc131\uacf5\uc801\uc73c\ub85c \uc800\uc7a5\ub418\uc5c8\uc2b5\ub2c8\ub2e4.';
+  } else {
+    el.style.cssText = 'display:block;background:var(--ypale);color:#7A5800;border:1.5px solid var(--yellow);margin:14px auto 0;max-width:380px;padding:10px 14px;border-radius:7px;font-size:12px;';
+    el.innerHTML = '\u26a0\ufe0f &nbsp;\ub124\ud2b8\uc6cc\ud06c \uc624\ub958\ub85c \ub85c\uce5c\uc5d0 \uc784\uc2dc \uc800\uc7a5\ub418\uc5c8\uc2b5\ub2c8\ub2e4. \uc778\ud130\ub137 \uc5f0\uacb0 \ud6c4 \uc7ac\uc811\uc18d\ud558\uba74 \uc790\ub3d9\uc73c\ub85c \uc7ac\uc804\uc1a1\ub429\ub2c8\ub2e4.';
+  }
+}
+
+// ── ACCESS CODE (Server-side verification) ───────────────────────────────────
+function checkAccess() {
+  const input = document.getElementById('accessInput').value.trim();
+  const errEl = document.getElementById('accessError');
+
+  if (!input) {
+    errEl.textContent = '⚠ 코드를 입력해주세요 / Please enter the access code.';
+    errEl.style.display = 'block';
+    return;
+  }
+
+  // 클라이언트 검증 (base64) — 즉시 작동, 서버 불필요
+  var ok = false;
+  try { ok = (btoa(input) === 'b2Jta3QyMDI2'); } catch(e) { ok = (input === 'obmkt2026'); }
+
+  if (ok) {
+    errEl.style.display = 'none';
+    document.getElementById('sAccess').classList.remove('on');
+    document.getElementById('s0').classList.add('on');
+    var prog = document.getElementById('prog');
+    if (prog) prog.style.width = '0%';
+  } else {
+    errEl.textContent = '⚠ 코드가 올바르지 않습니다 / Incorrect access code. Please try again.';
+    errEl.style.display = 'block';
+    var inp = document.getElementById('accessInput');
+    inp.style.borderColor = '#E05C00';
+    inp.value = '';
+    inp.focus();
+    setTimeout(function(){ inp.style.borderColor = 'var(--graylt)'; }, 1500);
+  }
+}
+
+updAdmin(); updSum();
+
+// 페이지 로드 시 미전송 데이터 자동 재시도
+window.addEventListener('load', () => {
+  const pending = JSON.parse(localStorage.getItem('swd_pending') || '[]');
+  if (pending.length > 0) {
+    console.log('미전송 데이터 ' + pending.length + '건 재시도 중...');
+    retrySaved();
+  }
+});
+
+window.addEventListener('beforeunload',function(e){
+  const s=document.querySelector('.scr.on');
+  if(s&&s.id!=='s5'&&s.id!=='sAccess'){
+    e.preventDefault();
+    e.returnValue='설문이 완료되지 않았습니다. 페이지를 떠나면 응답 내용이 사라집니다.';
+  }
+});
+</script>
+</body>
+</html>
